@@ -8,8 +8,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const setData = () => {
-    console.log("test");
+  const setData = (e) => {
+    e.preventDefault();
     const user = { email: email, password: password };
 
     axios
@@ -18,16 +18,14 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        console.log(res);
+        window.location = "/";
       })
-      .catch((err) => {
-        console.log("tes");
-      });
+      .catch((err) => {});
   };
 
   return (
     <div style={{ paddingTop: "4rem" }}>
-      <Form>
+      <Form onSubmit={setData}>
         <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
@@ -83,9 +81,7 @@ const Login = () => {
 
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
-              <Button variant="primary" type="submit" onSubmit={setData}>
-                Log in
-              </Button>
+              <input type="submit" value="Login" className="btn btn-primary" />
             </Col>
           </Row>
         </Container>

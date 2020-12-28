@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import App from "../App";
 import homebg from "../assets/homebg.jpg";
 import {
   MDBNavbar,
@@ -14,7 +12,6 @@ import {
   MDBMask,
   MDBView,
 } from "mdbreact";
-import { BrowserRouter as Router } from "react-router-dom";
 
 export default function Home(props) {
   const [collapse, setCollapse] = useState(false);
