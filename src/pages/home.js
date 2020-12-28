@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from 'react'
 import App from '../App';
 import homebg from '../assets/homebg.jpg'
@@ -52,5 +53,11 @@ export default function Home() {
 
 
 
+=======
+import React, { useState } from "react";
+import App from "../App";
+>>>>>>> 3a6d0106ddcfb32889937efa0e9acf5bde08e178
 
+export default function home() {}
 
+const headerText = {};
