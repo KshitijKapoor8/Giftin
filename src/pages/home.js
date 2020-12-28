@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { AppBar, Toolbar } from "@material-ui/core";
+import React, {useState} from 'react'
+import App from '../App';
+
 
 export default function home() {
-  return (
-    <div>
-      <AppBar>Giftn</AppBar>
-    </div>
-  );
+    return (
+        
+    )
 }
+
+
+const headerText = {
+
+}
+
+
+

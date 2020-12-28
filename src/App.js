@@ -1,14 +1,14 @@
-import logo from "./logo.svg";
-import "./App.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import Home from "./pages/signup.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './pages/home'
+import Navbar from './components/navbar'
+import {BrowserRouter} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <Home />
+
+        <Navbar/>
     </div>
   );
 }
