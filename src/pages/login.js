@@ -13,17 +13,14 @@ const Login = () => {
 
     const user = {email: email, password: password};
 
-    axios.post('http://localhost:5000/users/login', user)
+    axios.post('http://localhost:5000/users/login', {
+      "email": email,
+      "password": password,
+    })
       .then((res) => {
-        window.$loggedin = "user";
-        localStorage.setItem("checkiflogged", window.$loggedin);
-        window.$userToken = res.data;
-        localStorage.setItem("userToken", window.$userToken);
-        console.log(window.$userToken);
-        console.log(window.$loggedin);
-        window.location = "/";
+        console.log(res);
       })
-      .catch((err) => {})
+      .catch((err) => {console.log("tes")})
   }
 
 
