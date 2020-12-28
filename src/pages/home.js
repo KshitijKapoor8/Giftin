@@ -58,3 +58,7 @@ export default function Home(props) {
     </div>
   );
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 19ade195e3ee71702fe23222493f973a6431b595
