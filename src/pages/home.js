@@ -1,17 +1,6 @@
-import React, {useState} from 'react'
-import App from '../App';
+import React, { useState } from "react";
+import App from "../App";
 
+export default function home() {}
 
-export default function home() {
-    return (
-        <p>aaa</p>
-    )
-}
-
-
-const headerText = {
-
-}
-
-
-
+const headerText = {};

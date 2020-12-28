@@ -16,11 +16,19 @@ export default function login() {
     })
   return (
     <div style={{ paddingTop: "4rem" }}>
-      <FaLock size={23} />
-
       <Form>
-        <label style={{ fontSize: "2rem" }}> Login </label>
         <Container>
+          <Row>
+            <Col xs={{ span: 4, offset: 4 }}>
+              <FaLock size={23} />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <label style={{ fontSize: "2rem" }}> Login </label>
+            </Col>
+          </Row>
+
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridEmail">
@@ -39,13 +47,20 @@ export default function login() {
             </Col>
           </Row>
 
-          <Form.Group id="formNoAccount">
-            <a href="">Don't have an account?</a>
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Sign in
-          </Button>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <Form.Group id="formNoAccount">
+                <a href="">Don't have an account?</a>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <Button variant="primary" type="submit">
+                Sign in
+              </Button>
+            </Col>
+          </Row>
         </Container>
       </Form>
     </div>
