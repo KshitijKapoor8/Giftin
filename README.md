@@ -1,5 +1,6 @@
-# Getting Started with Create React App
+HAVE NODE INSTALLED AND INSTALL THESE LIBRARIES:
 
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -77,3 +78,7 @@ npm install express cors mongoose dotenv
 npm install -g nodemon
 npm install @material-ui/core
 npm install @material-ui/icons
+=======
+npm install 
+npm install @material-ui/core
+>>>>>>> c3030d55718444cd385f76606285cdbb2636c1b9
