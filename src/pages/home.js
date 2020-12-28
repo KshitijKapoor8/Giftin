@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+import App from "../App";
 import homebg from "../assets/homebg.jpg";
 import {
   MDBNavbar,
@@ -14,38 +16,36 @@ import {
 } from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
 
-export default function Home() {
+export default function Home(props) {
   const [collapse, setCollapse] = useState(false);
   const [isWideEnough, setIsWideEnough] = useState(false);
 
   return (
     <div>
       <header>
-        <Router>
-          <MDBNavbar
-            color="bg-primary"
-            fixed="top"
-            dark
-            expand="md"
-            scrolling
-            transparent
-          >
-            <MDBNavbarBrand href="/">Giftin</MDBNavbarBrand>
-            {!isWideEnough && (
-              <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
-            )}
-            <MDBCollapse isOpen={collapse} navbar>
-              <MDBNavbarNav right>
-                <MDBNavItem>
-                  <MDBNavLink to="/login">Login</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="/signup">Sign Up</MDBNavLink>
-                </MDBNavItem>
-              </MDBNavbarNav>
-            </MDBCollapse>
-          </MDBNavbar>
-        </Router>
+        <MDBNavbar
+          color="bg-primary"
+          fixed="top"
+          dark
+          expand="md"
+          scrolling
+          transparent
+        >
+          <MDBNavbarBrand href="/home">Giftin</MDBNavbarBrand>
+          {!isWideEnough && (
+            <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
+          )}
+          <MDBCollapse isOpen={collapse} navbar>
+            <MDBNavbarNav right>
+              <MDBNavItem>
+                <MDBNavLink to="/login">Login</MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink to="/signup">Sign Up</MDBNavLink>
+              </MDBNavItem>
+            </MDBNavbarNav>
+          </MDBCollapse>
+        </MDBNavbar>
 
         <MDBView src={homebg}></MDBView>
       </header>
