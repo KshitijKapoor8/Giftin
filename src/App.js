@@ -5,6 +5,7 @@ import React from "react";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./index.css";
 
 function App() {
   return (

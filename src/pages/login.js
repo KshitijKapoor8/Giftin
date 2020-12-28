@@ -6,7 +6,7 @@ export default function login() {
   return (
     <div style={{ paddingTop: "4rem" }}>
       <Form>
-        <Container>
+        <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
               <FaLock size={23} />
@@ -39,7 +39,9 @@ export default function login() {
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group id="formNoAccount">
-                <a href="">Don't have an account?</a>
+                <a href="http://localhost:3000/signup">
+                  Don't have an account?
+                </a>
               </Form.Group>
             </Col>
           </Row>
