@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
-import axios from 'axios';
-
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +9,8 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const setData = () => {
+    console.log("test");
+    const user = { email: email, password: password };
 
     const user = {email: email, password: password};
 
@@ -27,7 +28,7 @@ const Login = () => {
   return (
     <div style={{ paddingTop: "4rem" }}>
       <Form>
-        <Container>
+        <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
               <FaLock size={23} />
@@ -60,11 +61,13 @@ const Login = () => {
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group id="formNoAccount">
-                <a href="">Don't have an account?</a>
+                <a href="http://localhost:3000/signup">
+                  Don't have an account?
+                </a>
               </Form.Group>
             </Col>
           </Row>
-        
+
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Button variant="primary" type="submit" onSubmit = {setData} >
@@ -72,11 +75,10 @@ const Login = () => {
               </Button>
             </Col>
           </Row>
-          
         </Container>
       </Form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from 'react'
 import App from '../App';
 import homebg from '../assets/homebg.jpg'
@@ -10,43 +11,84 @@ export default function Home() {
     const [isWideEnough, setIsWideEnough] = useState(false);
 
 
+=======
+import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+import App from "../App";
+import homebg from "../assets/homebg.jpg";
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBNavItem,
+  MDBNavLink,
+  MDBContainer,
+  MDBMask,
+  MDBView,
+} from "mdbreact";
+import { BrowserRouter as Router } from "react-router-dom";
+>>>>>>> 19ade195e3ee71702fe23222493f973a6431b595
 
-    return (
+export default function Home(props) {
+  const [collapse, setCollapse] = useState(false);
+  const [isWideEnough, setIsWideEnough] = useState(false);
 
-        <div>
-        <header>
-          <Router>
-            <MDBNavbar color="bg-primary" fixed="top" dark expand="md" scrolling transparent>
-              <MDBNavbarBrand href="/home">
-                Giftin
-              </MDBNavbarBrand>
-              {!isWideEnough && <MDBNavbarToggler onClick={()=> setCollapse(!collapse)} />}
-              <MDBCollapse isOpen={collapse} navbar>
-                <MDBNavbarNav right>
-                  <MDBNavItem >
-                    <MDBNavLink to="#">Login</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem >
-                    <MDBNavLink to="#">Sign Up</MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          </Router>
+  return (
+    <div>
+      <header>
+        <MDBNavbar
+          color="bg-primary"
+          fixed="top"
+          dark
+          expand="md"
+          scrolling
+          transparent
+        >
+          <MDBNavbarBrand href="/home">Giftin</MDBNavbarBrand>
+          {!isWideEnough && (
+            <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
+          )}
+          <MDBCollapse isOpen={collapse} navbar>
+            <MDBNavbarNav right>
+              <MDBNavItem>
+                <MDBNavLink to="/login">Login</MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink to="/signup">Sign Up</MDBNavLink>
+              </MDBNavItem>
+            </MDBNavbarNav>
+          </MDBCollapse>
+        </MDBNavbar>
 
-          <MDBView src={homebg}>
-            
-          </MDBView>
-        </header>
+        <MDBView src={homebg}></MDBView>
+      </header>
 
-        <main>
-          <MDBContainer className="text-center my-5">
-            <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </MDBContainer>
-        </main>
-      </div>
-       
-            
-    )
+      <main>
+        <MDBContainer className="text-center my-5">
+          <p align="justify">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
+            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in
+            voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
+          </p>
+        </MDBContainer>
+      </main>
+    </div>
+  );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 19ade195e3ee71702fe23222493f973a6431b595

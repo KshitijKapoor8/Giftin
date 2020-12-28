@@ -3,7 +3,7 @@ HAVE NODE INSTALLED AND INSTALL THESE LIBRARIES:
 <<<<<<< HEAD
 npm install 
 
-npm install react-bootstrap bootstrap react-router-dom
+npm install react-bootstrap bootstrap react-router-dom axios mdbreact
 =======
 <<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
