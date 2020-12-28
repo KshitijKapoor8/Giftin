@@ -1,4 +1,5 @@
 HAVE NODE INSTALLED AND INSTALL THESE LIBRARIES:
 
 npm install 
-npm install @material-ui/core
+npm install react-bootstrap bootstrap react-router-dom
+
