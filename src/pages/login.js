@@ -8,25 +8,24 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const setData = () => {
-    console.log("test");
+  const setData = (e) => {
+    e.preventDefault();
+    const user = { email: email, password: password };
 
-    const user = {email: email, password: password};
-
-    axios.post('http://localhost:5000/users/login', {
-      "email": email,
-      "password": password,
-    })
-      .then((res) => {
-        console.log(res);
+    axios
+      .post("http://localhost:5000/users/login", {
+        email: email,
+        password: password,
       })
-      .catch((err) => {console.log("tes")})
-  }
-
+      .then((res) => {
+        window.location = "/";
+      })
+      .catch((err) => {});
+  };
 
   return (
     <div style={{ paddingTop: "4rem" }}>
-      <Form>
+      <Form onSubmit={setData}>
         <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
@@ -43,7 +42,14 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange = {(text) => {setEmail(text.target.value); console.log(text.target.value)}}/>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={(text) => {
+                    setEmail(text.target.value);
+                    console.log(text.target.value);
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -52,7 +58,13 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange = {(text) => {setPassword(text.target.value)}}/>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(text) => {
+                    setPassword(text.target.value);
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -69,9 +81,7 @@ const Login = () => {
 
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
-              <Button variant="primary" type="submit" onSubmit = {setData} >
-                Log in
-              </Button>
+              <input type="submit" value="Login" className="btn btn-primary" />
             </Col>
           </Row>
         </Container>

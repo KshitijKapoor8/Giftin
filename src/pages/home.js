@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import App from "../App";
 import homebg from "../assets/homebg.jpg";
 import {
   MDBNavbar,
@@ -14,7 +12,6 @@ import {
   MDBMask,
   MDBView,
 } from "mdbreact";
-import { BrowserRouter as Router } from "react-router-dom";
 
 export default function Home(props) {
   const [collapse, setCollapse] = useState(false);
@@ -48,11 +45,11 @@ export default function Home(props) {
         </MDBNavbar>
 
         <MDBView src={homebg}>
-            <MDBContainer>
-                <div style = {{fontSize: 36, color:'white'}}>
-                   <strong>Making Gifting Easy</strong> 
-                </div>
-            </MDBContainer>
+          <MDBContainer>
+            <div style={{ fontSize: 36, color: "white" }}>
+              <strong>Making Gifting Easy</strong>
+            </div>
+          </MDBContainer>
         </MDBView>
       </header>
     </div>
