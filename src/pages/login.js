@@ -15,9 +15,15 @@ const Login = () => {
 
     axios.post('http://localhost:5000/users/login', user)
       .then((res) => {
-        console.log(res.data.user)
+        window.$loggedin = "user";
+        localStorage.setItem("checkiflogged", window.$loggedin);
+        window.$userToken = res.data;
+        localStorage.setItem("userToken", window.$userToken);
+        console.log(window.$userToken);
+        console.log(window.$loggedin);
+        window.location = "/";
       })
-      .catch((err) => {console.log(user.email + " " + user.password)})
+      .catch((err) => {})
   }
 
 
@@ -40,7 +46,7 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange = {(text) => {setEmail(text)}}/>
+                <Form.Control type="email" placeholder="Enter email" onChange = {(text) => {setEmail(text.target.value); console.log(text.target.value)}}/>
               </Form.Group>
             </Col>
           </Row>
@@ -49,7 +55,7 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange = {(text) => {setPassword(text)}}/>
+                <Form.Control type="password" placeholder="Password" onChange = {(text) => {setPassword(text.target.value)}}/>
               </Form.Group>
             </Col>
           </Row>
@@ -64,7 +70,7 @@ const Login = () => {
         
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
-              <Button variant="primary" type="submit" onSubmit = {setData()}>
+              <Button variant="primary" type="submit" onSubmit = {setData} >
                 Log in
               </Button>
             </Col>
