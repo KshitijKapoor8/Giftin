@@ -4,7 +4,7 @@ import App from '../App';
 
 export default function home() {
     return (
-        
+        <p>aaa</p>
     )
 }
 
