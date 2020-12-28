@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
-import axios from 'axios';
-
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,21 +9,23 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const setData = () => {
+    console.log("test");
+    const user = { email: email, password: password };
 
-    const user = {email: email, password: password};
-
-    axios.post('http://localhost:5000/users/login', user)
+    axios
+      .post("http://localhost:5000/users/login", user)
       .then((res) => {
-        console.log(res.data.user)
+        console.log(res.data.user);
       })
-      .catch((err) => {console.log(user.email + " " + user.password)})
-  }
-
+      .catch((err) => {
+        console.log(user.email + " " + user.password);
+      });
+  };
 
   return (
     <div style={{ paddingTop: "4rem" }}>
       <Form>
-        <Container>
+        <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
               <FaLock size={23} />
@@ -40,7 +41,13 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" onChange = {(text) => {setEmail(text)}}/>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  onChange={(text) => {
+                    setEmail(text);
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -49,7 +56,13 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" onChange = {(text) => {setPassword(text)}}/>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(text) => {
+                    setPassword(text);
+                  }}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -57,23 +70,24 @@ const Login = () => {
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group id="formNoAccount">
-                <a href="">Don't have an account?</a>
+                <a href="http://localhost:3000/signup">
+                  Don't have an account?
+                </a>
               </Form.Group>
             </Col>
           </Row>
-        
+
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
-              <Button variant="primary" type="submit" onSubmit = {setData()}>
+              <Button variant="primary" type="submit" onSubmit={setData}>
                 Log in
               </Button>
             </Col>
           </Row>
-          
         </Container>
       </Form>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

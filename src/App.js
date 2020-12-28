@@ -5,16 +5,16 @@ import React from "react";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./index.css";
 
 function App() {
   return (
-    
     <Router>
-      <Navbar/>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/" component={Home} />
       </Switch>
     </Router>
   );
