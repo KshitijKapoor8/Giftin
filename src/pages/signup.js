@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
 
-export default function login() {
+export default function signup() {
   return (
     <div style={{ paddingTop: "4rem" }}>
       <Form>
