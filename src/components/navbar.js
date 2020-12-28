@@ -1,18 +1,20 @@
 import React from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
+import {MDBNavbar, MDBNav, MDBNavbarBrand, MDBNavLink} from 'mdbreact'
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import Home from '../pages/home'
 export default function navbar() {
     return (
-        <Navbar sticky = "top" bg = "none">
-            <Navbar.Brand href = '/home' style = {{color:"black"}}>Giftin'</Navbar.Brand>
+    <Router>
+        <MDBNavbar scrolling transparent>
+            <MDBNavbarBrand href = '/home' style = {{color:"black"}}>Giftin'</MDBNavbarBrand>
 
-            <Nav className = "ml-auto">
-                <Nav.Link href = '/login'>Login</Nav.Link>
+            <MDBNav className = "ml-auto">
+                <MDBNavLink to = '/login'>Login</MDBNavLink>
+
+                <MDBNavLink to = '/signup'>Sign Up</MDBNavLink>
                 
-                <Nav.Link href = '/signup'>Sign Up</Nav.Link>
-                
-            </Nav>
-        </Navbar>
+            </MDBNav>
+        </MDBNavbar>
+    </Router>
     )
 }
