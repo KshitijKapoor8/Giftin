@@ -9,7 +9,9 @@ import "./index.css";
 
 function App() {
   return (
+    
     <Router>
+      <Navbar/>
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />

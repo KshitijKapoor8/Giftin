@@ -81,6 +81,13 @@ npm install
 npm install react-bootstrap bootstrap react-router-dom
 
 =======
+<<<<<<< HEAD
+npm install @material-ui/core
+>>>>>>> c3030d55718444cd385f76606285cdbb2636c1b9
+>>>>>>> b8e3c626edc7ad25dc60a907c2decad4d73f5d23
+npm install axios
+=======
 
 > > > > > > > c3030d55718444cd385f76606285cdbb2636c1b9
 > > > > > > > b8e3c626edc7ad25dc60a907c2decad4d73f5d23
+>>>>>>> 7db8c197aa76e26e3fe12514445dbfbbbd5ca654
