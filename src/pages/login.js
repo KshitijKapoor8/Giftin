@@ -10,7 +10,6 @@ const Login = () => {
 
   const setData = () => {
     console.log("test");
-    const user = { email: email, password: password };
 
     const user = {email: email, password: password};
 
