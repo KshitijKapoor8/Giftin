@@ -9,19 +9,21 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const setData = () => {
-    console.log("test");
+  const setData = (e) => {
+    e.preventDefault();
     const user = { email: email, password: password };
 
-    axios.post('http://localhost:5000/users/login', user)
-      .then((res) => {
-  
-        localStorage.setItem("userToken", res.data);
-        window.location = '/page';
-        
+    axios
+      .post("http://localhost:5000/users/login", {
+        email: email,
+        password: password,
       })
-      .catch((err) => {console.log("tes");})
-  }
+      .then((res) => {
+        localStorage.setItem("userToken", res.data);
+        window.location = "/page";
+      })
+      .catch((err) => {});
+  };
 
   return (
     <div style={{ paddingTop: "4rem" }}>
