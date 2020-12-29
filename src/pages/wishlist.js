@@ -60,11 +60,7 @@ function RenderContent() {
               height: "100%",
             }}
           >
-<<<<<<< HEAD
-            <strong>your</strong> wishlist
-=======
             <span><span style = {{fontWeight: 'bold'}}>your</span> wishlist</span>
->>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
           </h1>
           <div
             style={{

@@ -11,10 +11,7 @@ import {
   MDBModalFooter,
 } from "mdbreact";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
-<<<<<<< HEAD
 import Loader from "react-loader-spinner";
-=======
->>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
 
 let parsedResponse = [];
 let list = [];
@@ -44,10 +41,6 @@ const Search = () => {
   const [loading, setLoading] = useState(true)
   const [filtered, setFiltered] = useState([]);
   const [modal, setModal] = useState(false);
-<<<<<<< HEAD
-
-=======
->>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {})
@@ -95,7 +88,7 @@ const Search = () => {
           setLoading(false);
       }
 
-      console.log(priceArray);
+      console.log(loading);
       priceSet = [...new Set(priceArray)];
       titleSet = [...new Set(titleArray)];
 
@@ -110,6 +103,7 @@ const Search = () => {
     for (var i = 0; i < parsedResponse.length; i++) {
       if (parsedResponse[i].username == name) {
         id = parsedResponse[i]._id;
+        console.log(id)
       }
     }
 
@@ -129,7 +123,6 @@ const Search = () => {
 
   const searchData = (e) => {
     let currentList = [];
-
     let newList = [];
 
     if (e.target.value !== "") {
@@ -163,7 +156,7 @@ const Search = () => {
     else{
       return(<MDBModalBody><MDBTable borderless>
         <MDBTableHead>
-          <tr style={{ color: "white" }}>
+          <tr style={{ color: "black" }}>
             <th>#</th>
             <th>title</th>
             <th>price</th>
@@ -225,11 +218,7 @@ const Search = () => {
           </div>
           <MDBModal isOpen={modal}>
             <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
-<<<<<<< HEAD
             <LoadingBody/>
-=======
-            <MDBModalBody>hello</MDBModalBody>
->>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggle}>
                 Close
