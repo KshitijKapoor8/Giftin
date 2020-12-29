@@ -34,17 +34,25 @@ async function getHTML(productURL) {
 }
 
 async function getAmazonPrice(html) {
-  const $ = await cherrio.load(html);
+  try {
 
-  const span = $("#priceblock_ourprice");
+  html = html.toString();
+  const $ = await cherrio.load(html)
+  
+  const span = $('#priceblock_ourprice')
   return span.html();
+  } catch (error) {}
 }
 
 async function getAmazonTitle(html) {
-  const $ = await cherrio.load(html);
-
-  const span = $("#productTitle");
-  return span.html();
-}
+  try {
+    html = html.toString();
+    const $ = await cherrio.load(html)
+    
+    const span = $('#productTitle')
+    return span.html();
+  } catch(error) {}
+  }
+  
 
 export { getHTML, getAmazonPrice, getAmazonTitle };

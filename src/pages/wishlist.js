@@ -13,6 +13,7 @@ let titleArray = [];
 let priceSet = [];
 let titleSet = [];
 
+
 export default function Wishlist() {
   if (localStorage.getItem("userToken") === "") {
     window.location = "/";
@@ -59,7 +60,11 @@ function RenderContent() {
               height: "100%",
             }}
           >
+<<<<<<< HEAD
             <strong>your</strong> wishlist
+=======
+            <span><span style = {{fontWeight: 'bold'}}>your</span> wishlist</span>
+>>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
           </h1>
           <div
             style={{
@@ -80,6 +85,8 @@ function RenderContent() {
     if (loading) {
       console.log(parsedResponse);
 
+      if (parsedResponse.length === 0)
+        setLoading(false);
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
         
@@ -104,6 +111,7 @@ function RenderContent() {
     }
   }
 
+  if (parsedResponse.length !== 0)
   return (
     <MDBView
       style={{
@@ -137,11 +145,12 @@ function RenderContent() {
           }}
         >
           <MDBTable borderless>
-            <MDBTableHead>
-              <tr style={{ color: "white" }}>
+            <MDBTableHead >
+              <tr style={{ color: "white", paddingLeft: '20%' }}>
                 <th>#</th>
                 <th>title</th>
                 <th>price</th>
+                <th></th>
               </tr>
             </MDBTableHead>
 
@@ -162,6 +171,12 @@ function RenderContent() {
                       </a>
                     </th>
                     <th>{priceArray[index]}</th>
+                    <th><div onClick = {() => {
+                      parsedResponse.pop(index);
+                      axios.post('http://localhost:5000/users/update/'+localStorage.getItem("userToken"), {"wishlist": parsedResponse})
+                        .then(() => {window.location.reload()})
+                        .catch((err) => {console.log(err)})                     
+                    }}><i size = "70%" color = "#D32F2F" class="fas fa-trash"></i></div></th>
                   </tr>
                 );
               })}
@@ -171,4 +186,57 @@ function RenderContent() {
       </div>
     </MDBView>
   );
+
+  return (
+    
+    <MDBView
+      style={{
+        display: "flex",
+        flexDirection: "vertical",
+        justifyContent: "center",
+      }}
+      src={presentBg}
+    >
+      {console.log("test")}
+      <div>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "7rem",
+            height: "100%",
+          }}
+        >
+          <h1 style={{ color: "white" }}>
+            <strong>your</strong> wishlist
+          </h1>
+        </div>
+
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <MDBTable borderless>
+            <MDBTableHead >
+              <tr style={{ color: "white", paddingLeft: '20%' }}>
+                <th>#</th>
+                <th>title</th>
+                <th>price</th>
+                <th></th>
+              </tr>
+            </MDBTableHead>
+          </MDBTable>
+        </div>
+        <div style = {{justifyContent: 'center', display:'flex', color: 'white'}}><h1>You don't have anything in your wishlist!</h1></div>
+        <div></div>
+      </div>
+    </MDBView>
+  )
 }
+
+

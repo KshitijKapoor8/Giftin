@@ -57,6 +57,7 @@ function LoggedIn() {
     </>
   );
 }
+
 export default function Navbar(props) {
   const [collapse, setCollapse] = useState(false);
   const [isWideEnough, setIsWideEnough] = useState(false);

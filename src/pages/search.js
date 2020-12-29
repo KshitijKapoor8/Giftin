@@ -11,7 +11,10 @@ import {
   MDBModalFooter,
 } from "mdbreact";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
+<<<<<<< HEAD
 import Loader from "react-loader-spinner";
+=======
+>>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
 
 let parsedResponse = [];
 let list = [];
@@ -21,6 +24,10 @@ let priceArray = [];
 let titleArray = [];
 let priceSet = [];
 let titleSet = [];
+
+var name;
+
+var id;
 
 var name;
 
@@ -37,7 +44,10 @@ const Search = () => {
   const [loading, setLoading] = useState(true)
   const [filtered, setFiltered] = useState([]);
   const [modal, setModal] = useState(false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {})
@@ -215,7 +225,11 @@ const Search = () => {
           </div>
           <MDBModal isOpen={modal}>
             <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
+<<<<<<< HEAD
             <LoadingBody/>
+=======
+            <MDBModalBody>hello</MDBModalBody>
+>>>>>>> 1e32c9c48019d3f8975da1025176c530169f8af4
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggle}>
                 Close

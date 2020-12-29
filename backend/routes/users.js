@@ -50,28 +50,12 @@ router.route('/login').post((req, res) => {
 router.route("/update/:id").post((req, res) => {
     User.findByIdAndUpdate(req.params.id)
         .then((user) => {
+            user.wishlist = req.body.wishlist;
+            user.save();
             return res.status(200).json(user);
         })
   });
 
-
-  const options = {
-    method: 'GET',
-    url: 'https://axesso-axesso-amazon-data-service-v1.p.rapidapi.com/amz/amazon-lookup-product',
-    params: {
-      url: 'https://www.amazon.com/AMD-Ryzen-3600-12-Thread-Processor/dp/B07STGGQ18/ref=sr_1_1?dchild=1&keywords=Ryzen+5+5600x&qid=1609213264&sr=8-1"'
-    },
-    headers: {
-      'x-rapidapi-key': '2a64351304msh7b9451590696c26p163edbjsna706b2a0b552',
-      'x-rapidapi-host': 'axesso-axesso-amazon-data-service-v1.p.rapidapi.com'
-    }
-  };
-  
-  axios.request(options).then(function (response) {
-      console.log(response.data);
-  }).catch(function (error) {
-      console.error(error);
-  })
 
 
 module.exports = router;
