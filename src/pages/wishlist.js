@@ -88,6 +88,7 @@ function RenderContent() {
         setLoading(false);
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
+        
         await getAmazonPrice(html).then((res) => {
           priceArray.push(res);
         });
@@ -130,7 +131,7 @@ function RenderContent() {
           }}
         >
           <h1 style={{ color: "white" }}>
-            <strong>your</strong> wishlist
+            <strong>your </strong> wishlist
           </h1>
         </div>
 
