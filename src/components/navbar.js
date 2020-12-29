@@ -20,10 +20,10 @@ function LoggedIn(){
     return(
           <MDBNavbarNav right>
                 <MDBNavItem>     
-                  <MDBNavLink to="/login">Login</MDBNavLink>
+                  <MDBNavLink to="/login">login</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink to="/signup">Sign Up</MDBNavLink>
+                  <MDBNavLink to="/signup">sign up</MDBNavLink>
                 </MDBNavItem>
           </MDBNavbarNav>
         
@@ -31,27 +31,28 @@ function LoggedIn(){
   }
 
   return (
-    <div>
+      <>
           <MDBNavbarNav left>
               <MDBNavItem>
-                <MDBNavLink to="/wishlist">Wishlist</MDBNavLink>
+                <MDBNavLink to="/wishlist">wishlist</MDBNavLink>
               </MDBNavItem>
               <MDBNavItem>
-                <MDBNavLink to="/search">Search</MDBNavLink>
+                <MDBNavLink to="/search">search</MDBNavLink>
               </MDBNavItem>
 
                           
             </MDBNavbarNav>
             <MDBNavbarNav right>
                 <MDBNavItem>     
-                  <MDBBtn onClick = {() => {
+                  <MDBBtn size = "sm" color = "red" style = {{}}onClick = {() => {
                     localStorage.setItem("userToken", "")
                     window.location.reload();
                     console.log(localStorage.getItem("userToken"))
-                }}>Logout</MDBBtn>
+                }}>logout</MDBBtn>
                 </MDBNavItem>
             </MDBNavbarNav>
-            </div>
+      </>
+      
   )
 }
 export default function Navbar(props) {
@@ -70,7 +71,7 @@ export default function Navbar(props) {
             scrolling
             transparent
           >
-            <MDBNavbarBrand href="/"><strong>Giftin'</strong></MDBNavbarBrand>
+            <MDBNavbarBrand href="/"><strong>giftin'</strong></MDBNavbarBrand>
             {!isWideEnough && (
               <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
             )}
