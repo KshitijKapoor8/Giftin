@@ -7,12 +7,8 @@ import {
     MDBCollapse,
     MDBNavItem,
     MDBNavLink,
-    MDBContainer,
-    MDBMask,
-    MDBView,
     MDBBtn
   } from "mdbreact";
-import { render } from 'react-dom';
 
 function LoggedIn(){
   if(localStorage.getItem("userToken") === "")
@@ -31,13 +27,7 @@ function LoggedIn(){
   }
 
   return (
-<<<<<<< HEAD
-
-  
-    <div>
-=======
       <>
->>>>>>> 5b1ce3450595d07840c68f3082a969ccf3e9d929
           <MDBNavbarNav left>
               <MDBNavItem>
                 <MDBNavLink to="/wishlist">wishlist</MDBNavLink>
@@ -77,11 +67,7 @@ export default function Navbar(props) {
             scrolling
             transparent
           >
-<<<<<<< HEAD
-            <MDBNavbarBrand href="/"><strong style = {{fontSize: '1.65rem'}}>giftin'</strong></MDBNavbarBrand>
-=======
             <MDBNavbarBrand href="/"><strong>giftin'</strong></MDBNavbarBrand>
->>>>>>> 5b1ce3450595d07840c68f3082a969ccf3e9d929
             {!isWideEnough && (
               <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
             )}
