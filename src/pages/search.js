@@ -65,7 +65,7 @@ const Search = () => {
       })
       .catch((err) => {});
 
-      axios
+    axios
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
         wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
@@ -74,7 +74,6 @@ const Search = () => {
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
 
   async function scrapePage() {
@@ -93,7 +92,9 @@ const Search = () => {
           console.log(titleArray);
         });
 
-        if (wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i])
+        if (
+          wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i]
+        )
           setLoading(false);
       }
 
@@ -123,7 +124,7 @@ const Search = () => {
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
         wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        console.log(wishlistResponse)
+        console.log(wishlistResponse);
         scrapePage();
       })
       .catch((err) => {});
@@ -132,6 +133,7 @@ const Search = () => {
   };
   function toggle() {
     setModal(false);
+    window.location.reload(false);
   }
 
   const searchData = (e) => {
@@ -182,26 +184,14 @@ const Search = () => {
             </MDBTableHead>
 
             <MDBTableBody>
-<<<<<<< HEAD
-              {parsedResponse.map((links, index) => {
-                console.log("PRICES: " + priceArray);
-                console.log(priceArray[0]);
-                return (
-                  <tr style={{ color: "white" }}>
-                    <th>{index + 1}</th>
-                    <th>
-                      <a
-                        style={{ color: "white" }}
-=======
               {wishlistResponse.map((links, index) => {
-                console.log(index)
+                console.log(index);
                 return (
                   <tr style={{ color: "black" }}>
                     <th>{index + 1}</th>
                     <th>
                       <a
                         style={{ color: "black" }}
->>>>>>> 797f6a7400290639297fdeeefd86f667a03bee76
                         target="_blank"
                         href={links}
                       >
