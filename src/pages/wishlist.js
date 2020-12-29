@@ -48,22 +48,6 @@ function RenderContent() {
         if(loading)
         {
             console.log(parsedResponse)
-            // parsedResponse.map(async (x, i) => {
-
-
-            //     let html = await getHTML(x);
-            //     await getAmazonPrice(html).then((res) => {
-            //         priceArray.push(res)
-            //         console.log(res)
-            //         if(parsedResponse[parsedResponse.length-1] === x)
-            //             setLoading(false)
-
-            //     })
-                
-            //     await getAmazonTitle(html).then((res) => {
-            //         titleArray.push(res)
-            //     })
-            // })
 
             for(let i = 0; i < parsedResponse.length; i++)
             {
@@ -92,20 +76,6 @@ function RenderContent() {
             
         }
       }
-        
-      
-    // for(let i = 0; i < parsedResponse.length; i++)
-    // {
-    //     let asin;
-    //     var regex = RegExp("https://www.amazon.com/([//w-]+/)?(dp%7Cgp/product)/(//w+/)?(//w%7B10%7D)%22");
-
-    //     if (parsedResponse[i].match(regex)) { 
-    //         asin = parsedResponse[i].match(regex)[4];
-    //     }
-    //     console.log(parsedResponse[i])
-    //     console.log(asin)
-        
-    // }
     
     return (
         
@@ -140,14 +110,9 @@ function RenderContent() {
                                                     <th>{index+1}</th>
                                                     <th><a style = {{color:'white'}} target = "_blank" href = {links}>{titleArray[index]}</a></th>
                                                     <th>{priceArray[index]}</th>
-                                                </tr>
-                                                
-                                            )
-                                        
-                                        
+                                                </tr>   
+                                            )  
                                     })
-
-                                    
                                 }
                                 </MDBTableBody>
                                           
