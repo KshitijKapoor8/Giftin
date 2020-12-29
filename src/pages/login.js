@@ -19,7 +19,7 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("userToken", res.data);
-        window.location = "/page";
+        window.location = "/";
       })
       .catch((err) => {});
   };
