@@ -65,7 +65,7 @@ const Search = () => {
       })
       .catch((err) => {});
 
-      axios
+    axios
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
         wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
@@ -74,7 +74,6 @@ const Search = () => {
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
 
   async function scrapePage() {
@@ -93,7 +92,9 @@ const Search = () => {
           console.log(titleArray);
         });
 
-        if (wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i])
+        if (
+          wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i]
+        )
           setLoading(false);
       }
 
@@ -119,10 +120,20 @@ const Search = () => {
       }
     }
 
+    axios
+      .get(`http://localhost:5000/users/${id}`)
+      .then((res) => {
+        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        console.log(wishlistResponse);
+        scrapePage();
+      })
+      .catch((err) => {});
+
     setModal(true);
   };
   function toggle() {
     setModal(false);
+    window.location.reload(false);
   }
 
   const searchData = (e) => {
@@ -174,7 +185,7 @@ const Search = () => {
 
             <MDBTableBody>
               {wishlistResponse.map((links, index) => {
-                console.log(index)
+                console.log(index);
                 return (
                   <tr style={{ color: "black" }}>
                     <th>{index + 1}</th>
