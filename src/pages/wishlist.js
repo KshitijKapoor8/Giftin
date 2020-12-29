@@ -4,11 +4,13 @@ import {MDBView, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import presentBg from '../assets/present.jpg'
 import axios from 'axios'
 import { getAmazonPrice, getAmazonTitle, getHTML } from './scrape';
+
 let parsedResponse = [];
 let priceArray = [];
 let titleArray = [];
 let priceSet = [];
 let titleSet = [];
+
 
 export default function Wishlist() {
 
@@ -51,9 +53,11 @@ function RenderContent() {
         priceSet = [...new Set(priceArray)];
         titleSet = [...new Set(titleArray)];
 
-        setLoadData(false)
-                console.log(priceSet)
+        priceArray = Array.from(priceSet);
+        titleArray = Array.from(titleSet)
 
+        setLoadData(false)
+        console.log(priceSet)
       }
 
     useEffect(() => {
@@ -104,7 +108,7 @@ function RenderContent() {
                                         return(
                                         <tr style = {{color: 'white'}}>
                                             <th>{links}</th>
-                                            <th>{priceSet[index]}</th>
+                                            <th>{priceArray[index]}</th>
                                             <th>price</th>
                                         </tr>
                                         
@@ -121,3 +125,5 @@ function RenderContent() {
             </MDBView>
     )
 }
+
+
