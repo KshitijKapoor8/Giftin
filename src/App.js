@@ -3,7 +3,6 @@ import Home from "./pages/home";
 import React from "react";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import Page from "./pages/page";
 import Search from "./pages/search";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Wishlist from "./pages/wishlist";

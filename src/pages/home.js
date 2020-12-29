@@ -27,12 +27,10 @@ export default function Home(props) {
 function renderContent()
 {
     return(
-        <MDBView src={homebg}>
-          <MDBContainer>
-            <div style={{ fontSize: 36, color: "white" }}>
-              <strong>Making Gifting Easy</strong>
-            </div>
-          </MDBContainer>
+        <MDBView src={homebg} style = {{justifyContent: 'center',  alignItems: 'center', width: '100%', height: '100%'}}>
+            <MDBMask className="flex-center" >
+              <p className="white-text" style={{fontSize: 50, paddingRight: '35%', paddingBottom: '8%'}}>make gifting easy</p>
+            </MDBMask>
         </MDBView>
     );
 }
