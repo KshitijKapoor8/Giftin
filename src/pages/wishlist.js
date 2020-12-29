@@ -3,7 +3,12 @@ import Navbar from '../components/navbar'
 import {MDBView, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import presentBg from '../assets/present.jpg'
 import axios from 'axios'
-
+import { getAmazonPrice, getAmazonTitle, getHTML } from './scrape';
+let parsedResponse = [];
+let priceArray = [];
+let titleArray = [];
+let priceSet = [];
+let titleSet = [];
 
 export default function Wishlist() {
 
@@ -16,10 +21,40 @@ export default function Wishlist() {
     )
 }
 
+
+  
 function RenderContent() {
-    let parsedResponse = [];
+    
     const [loading, setLoading] = useState(true)
+    const [loadData, setLoadData] = useState(true);
     let currentId = localStorage.getItem("userToken");
+
+    async function scrapePage() {
+        if(loading)
+            return null;
+        for(let i = 0; i < parsedResponse.length; i++)
+        {
+           
+
+            let html = await getHTML(parsedResponse[i]);
+            getAmazonPrice(html).then((res) => {
+                priceArray.push(res)
+            })
+
+            getAmazonTitle(html).then((res) => {
+                titleArray.push(res)
+            })
+            
+
+        }
+
+        priceSet = [...new Set(priceArray)];
+        titleSet = [...new Set(titleArray)];
+
+        setLoadData(false)
+                console.log(priceSet)
+
+      }
 
     useEffect(() => {
         axios.get(`http://localhost:5000/users/${currentId}`)
@@ -30,6 +65,8 @@ function RenderContent() {
         .catch((err) => {console.log(err)})
 
     }, [])
+
+    scrapePage();
 
     if(loading)
     return null;
@@ -57,15 +94,27 @@ function RenderContent() {
 
                                 <MDBTableBody>
                                 {
-                                    parsedResponse.map(links => {
-                                        console.log(links)
+
+                                    parsedResponse.map((links, index) => {
                                         
+                                        if(setLoadData)
+                                        return null;
+
+
+                                        return(
+                                        <tr style = {{color: 'white'}}>
+                                            <th>{links}</th>
+                                            <th>{priceSet[index]}</th>
+                                            <th>price</th>
+                                        </tr>
+                                        
+                                        )
                                     })
+
+                                    
                                 }
                                 </MDBTableBody>
-                                
-
-                               
+                                          
                         </MDBTable>
                     </div>  
                 </div>
