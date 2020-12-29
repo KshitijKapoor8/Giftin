@@ -9,7 +9,6 @@ let priceArray = [];
 let titleArray = [];
 let priceSet = [];
 let titleSet = [];
-let asin = [];
 
 export default function Wishlist() {
   if (localStorage.getItem("userToken") === "") {
@@ -27,8 +26,6 @@ function wait(ms) {
 
 function RenderContent() {
   const [loading, setLoading] = useState(true);
-  const [loadData, setLoadData] = useState(true);
-  const [currentPrice, setCurrentPrice] = useState("");
   let currentId = localStorage.getItem("userToken");
 
   useEffect(() => {
@@ -48,23 +45,6 @@ function RenderContent() {
 
   async function scrapePage() {
     if (loading) {
-      console.log(parsedResponse);
-      // parsedResponse.map(async (x, i) => {
-
-      //     let html = await getHTML(x);
-      //     await getAmazonPrice(html).then((res) => {
-      //         priceArray.push(res)
-      //         console.log(res)
-      //         if(parsedResponse[parsedResponse.length-1] === x)
-      //             setLoading(false)
-
-      //     })
-
-      //     await getAmazonTitle(html).then((res) => {
-      //         titleArray.push(res)
-      //     })
-      // })
-
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
         await getAmazonPrice(html).then((res) => {
@@ -87,19 +67,6 @@ function RenderContent() {
       titleArray = Array.from(titleSet);
     }
   }
-
-  // for(let i = 0; i < parsedResponse.length; i++)
-  // {
-  //     let asin;
-  //     var regex = RegExp("https://www.amazon.com/([//w-]+/)?(dp%7Cgp/product)/(//w+/)?(//w%7B10%7D)%22");
-
-  //     if (parsedResponse[i].match(regex)) {
-  //         asin = parsedResponse[i].match(regex)[4];
-  //     }
-  //     console.log(parsedResponse[i])
-  //     console.log(asin)
-
-  // }
 
   return (
     <MDBView
