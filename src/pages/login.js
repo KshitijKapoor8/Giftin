@@ -8,25 +8,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const setData = (e) => {
-    e.preventDefault();
-    const user = { email: email, password: password };
+  const setData = () => {
+    console.log("test");
 
-    axios
-      .post("http://localhost:5000/users/login", {
-        email: email,
-        password: password,
-      })
+
+    const user = {email: email, password: password};
+
+    axios.post('http://localhost:5000/users/login', {
+      "email": email,
+      "password": password,
+    })
       .then((res) => {
-        localStorage.setItem("userToken", res.data);
-        window.location = "/page";
+        console.log(res);
       })
-      .catch((err) => {});
-  };
+      .catch((err) => {console.log("tes")})
+  }
+
 
   return (
     <div style={{ paddingTop: "4rem" }}>
-      <Form onSubmit={setData}>
+      <Form>
         <Container fluid>
           <Row>
             <Col xs={{ span: 4, offset: 4 }}>
@@ -43,14 +44,7 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={(text) => {
-                    setEmail(text.target.value);
-                    console.log(text.target.value);
-                  }}
-                />
+                <Form.Control type="email" placeholder="Enter email" onChange = {(text) => {setEmail(text.target.value); console.log(text.target.value)}}/>
               </Form.Group>
             </Col>
           </Row>
@@ -59,13 +53,7 @@ const Login = () => {
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group controlId="formGridPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(text) => {
-                    setPassword(text.target.value);
-                  }}
-                />
+                <Form.Control type="password" placeholder="Password" onChange = {(text) => {setPassword(text.target.value)}}/>
               </Form.Group>
             </Col>
           </Row>
@@ -82,7 +70,9 @@ const Login = () => {
 
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
-              <input type="submit" value="Login" className="btn btn-primary" />
+              <Button variant="primary" type="submit" onSubmit = {setData} >
+                Log in
+              </Button>
             </Col>
           </Row>
         </Container>
