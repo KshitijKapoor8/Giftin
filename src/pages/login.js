@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom';
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
 import axios from "axios";
@@ -20,7 +19,7 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("userToken", res.data);
-        window.location = "/page";
+        window.location = "/";
       })
       .catch((err) => {});
   };
@@ -74,7 +73,7 @@ const Login = () => {
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group id="formNoAccount">
-                <a href="http://localhost:3000/signup" >
+                <a href="http://localhost:3000/signup">
                   Don't have an account?
                 </a>
               </Form.Group>
@@ -90,7 +89,6 @@ const Login = () => {
       </Form>
     </div>
   );
-
 };
 
 export default Login;

@@ -10,9 +10,52 @@ import {
     MDBContainer,
     MDBMask,
     MDBView,
+    MDBBtn
   } from "mdbreact";
 import { render } from 'react-dom';
 
+function LoggedIn(){
+  if(localStorage.getItem("userToken") === "")
+  {
+    return(
+          <MDBNavbarNav right>
+                <MDBNavItem>     
+                  <MDBNavLink to="/login" style = {{fontSize: '1.4rem'}}>login</MDBNavLink>
+                </MDBNavItem>
+                <MDBNavItem>
+                  <MDBNavLink to="/signup" style = {{fontSize: '1.4rem'}}>sign up</MDBNavLink>
+                </MDBNavItem>
+          </MDBNavbarNav>
+        
+    )
+  }
+
+  return (
+
+  
+    <div>
+          <MDBNavbarNav left>
+              <MDBNavItem>
+                <MDBNavLink to="/wishlist">wishlist</MDBNavLink>
+              </MDBNavItem>
+              <MDBNavItem>
+                <MDBNavLink to="/search">search</MDBNavLink>
+              </MDBNavItem>
+
+                          
+            </MDBNavbarNav>
+            <MDBNavbarNav right>
+                <MDBNavItem>     
+                  <MDBBtn onClick = {() => {
+                    localStorage.setItem("userToken", "")
+                    window.location.reload();
+                    console.log(localStorage.getItem("userToken"))
+                }}>Logout</MDBBtn>
+                </MDBNavItem>
+            </MDBNavbarNav>
+            </div>
+  )
+}
 export default function Navbar(props) {
   
     const [collapse, setCollapse] = useState(false);
@@ -29,27 +72,14 @@ export default function Navbar(props) {
             scrolling
             transparent
           >
-            <MDBNavbarBrand href="/">Giftin'</MDBNavbarBrand>
+            <MDBNavbarBrand href="/"><strong style = {{fontSize: '1.65rem'}}>giftin'</strong></MDBNavbarBrand>
             {!isWideEnough && (
               <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
             )}
             <MDBCollapse isOpen={collapse} navbar>
-              <MDBNavbarNav right>
-                <MDBNavItem>
-                  <MDBNavLink to="/wishlist">Wishlist</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="/search">Search</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  
-                  <MDBNavLink to="/login">Login</MDBNavLink>
-                </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink to="/signup">Sign Up</MDBNavLink>
-                </MDBNavItem>
-                
-              </MDBNavbarNav>
+              
+
+              <LoggedIn/>   
             </MDBCollapse>
           </MDBNavbar>
   
