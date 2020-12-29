@@ -50,9 +50,13 @@ router.route('/login').post((req, res) => {
 router.route("/update/:id").post((req, res) => {
     User.findByIdAndUpdate(req.params.id)
         .then((user) => {
+            user.wishlist = req.body.wishlist;
+            user.save();
             return res.status(200).json(user);
         })
   });
+
+
 
 module.exports = router;
 

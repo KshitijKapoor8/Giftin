@@ -1,19 +1,9 @@
-<<<<<<< HEAD
-import React, {useEffect, useState} from 'react'
-import Navbar from '../components/navbar'
-import {MDBView, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
-import presentBg from '../assets/present.jpg'
-import axios from 'axios'
-import { getAmazonPrice, getAmazonTitle, getHTML } from './scrape';
-
-=======
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import { MDBView, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import presentBg from "../assets/present.jpg";
 import axios from "axios";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
->>>>>>> a01095c1b416cb1b54325a56136ed69400ab9130
 let parsedResponse = [];
 let priceArray = [];
 let titleArray = [];
@@ -71,62 +61,6 @@ function RenderContent() {
       priceSet = [...new Set(priceArray)];
       titleSet = [...new Set(titleArray)];
 
-<<<<<<< HEAD
-    scrapePage();
-
-    if(loading)
-    return null;
-
-        
-    return (
-            <MDBView style = {{display: 'flex', flexDirection: 'vertical', justifyContent:'center'}}src = {presentBg}>
-
-                <div>
-                    <div style = {{flex: 1, display: 'flex', justifyContent: 'center', paddingTop: '7rem', height:'100%'}}>
-                        <h1 style = {{color: 'white'}}>
-                            <strong>your</strong> wishlist
-                        </h1>                        
-                    </div>
-
-                    <div style = {{flex: 1, display: 'flex', justifyContent: 'center', height:'100%'}}>
-                        <MDBTable borderless>
-                                <MDBTableHead>
-                                    <tr style = {{color: 'white'}}>
-                                        <th>#</th>
-                                        <th>title</th>
-                                        <th>price</th>
-                                    </tr>
-                                </MDBTableHead>
-
-                                <MDBTableBody>
-                                {
-
-                                    parsedResponse.map((links, index) => {
-                                        
-                                        if(setLoadData)
-                                        return null;
-
-
-                                        return(
-                                        <tr style = {{color: 'white'}}>
-                                            <th>{links}</th>
-                                            <th>{priceArray[index]}</th>
-                                            <th>price</th>
-                                        </tr>
-                                        
-                                        )
-                                    })
-
-                                    
-                                }
-                                </MDBTableBody>
-                                          
-                        </MDBTable>
-                    </div>  
-                </div>
-            </MDBView>
-    )
-=======
       priceArray = Array.from(priceSet);
       titleArray = Array.from(titleSet);
     }
@@ -165,11 +99,12 @@ function RenderContent() {
           }}
         >
           <MDBTable borderless>
-            <MDBTableHead>
-              <tr style={{ color: "white" }}>
+            <MDBTableHead >
+              <tr style={{ color: "white", paddingLeft: '20%' }}>
                 <th>#</th>
                 <th>title</th>
                 <th>price</th>
+                <th></th>
               </tr>
             </MDBTableHead>
 
@@ -190,6 +125,12 @@ function RenderContent() {
                       </a>
                     </th>
                     <th>{priceArray[index]}</th>
+                    <th><div onClick = {() => {
+                      parsedResponse.pop(index);
+                      axios.post('http://localhost:5000/users/update/'+localStorage.getItem("userToken"), {"wishlist": parsedResponse})
+                        .then(() => {window.location.reload()})
+                        .catch((err) => {console.log(err)})                     
+                    }}><i size = "70%" color = "#D32F2F" class="fas fa-trash"></i></div></th>
                   </tr>
                 );
               })}
@@ -199,7 +140,6 @@ function RenderContent() {
       </div>
     </MDBView>
   );
->>>>>>> a01095c1b416cb1b54325a56136ed69400ab9130
 }
 
 

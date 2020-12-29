@@ -62,25 +62,6 @@ export default function Navbar(props) {
   const [collapse, setCollapse] = useState(false);
   const [isWideEnough, setIsWideEnough] = useState(false);
 
-<<<<<<< HEAD
-    return (
-        <div>
-        <header>
-          <MDBNavbar
-            color="bg-primary"
-            fixed="top"
-            dark
-            expand="md"
-            scrolling
-            transparent
-          >
-            <MDBNavbarBrand href="/"><strong style = {{fontSize: '1.65rem'}}>giftin'</strong></MDBNavbarBrand>
-            {!isWideEnough && (
-              <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
-            )}
-            <MDBCollapse isOpen={collapse} navbar>
-              
-=======
   return (
     <div>
       <header>
@@ -102,7 +83,6 @@ export default function Navbar(props) {
             <LoggedIn />
           </MDBCollapse>
         </MDBNavbar>
->>>>>>> a01095c1b416cb1b54325a56136ed69400ab9130
 
         {props.renderContent}
       </header>
