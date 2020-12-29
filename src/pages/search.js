@@ -54,12 +54,12 @@ const Search = () => {
     axios
       .get("http://localhost:5000/users/", {})
       .then((res) => {
-        wishlistResponse = JSON.parse(JSON.stringify(res.data));
-        wishlistResponse
+        parsedResponse = JSON.parse(JSON.stringify(res.data));
+        parsedResponse
           .slice(0)
           .reverse()
-          .map((wishlistResponse) => {
-            list.push(wishlistResponse.username);
+          .map((parsedResponse) => {
+            list.push(parsedResponse.username);
           });
         setFiltered(list);
       })
@@ -113,20 +113,11 @@ const Search = () => {
   const findUser = (e) => {
     name = e.target.id;
 
-    for (var i = 0; i < wishlistResponse.length; i++) {
-      if (wishlistResponse[i].username == name) {
-        id = wishlistResponse[i]._id;
+    for (var i = 0; i < parsedResponse.length; i++) {
+      if (parsedResponse[i].username == name) {
+        id = parsedResponse[i]._id;
       }
     }
-
-    axios
-      .get(`http://localhost:5000/users/${id}`)
-      .then((res) => {
-        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        console.log(wishlistResponse)
-        scrapePage();
-      })
-      .catch((err) => {});
 
     setModal(true);
   };
