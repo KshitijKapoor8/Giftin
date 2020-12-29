@@ -16,16 +16,11 @@ export default function Wishlist() {
   }
   return <Navbar renderContent={RenderContent()} />;
 }
-function wait(ms) {
-  var start = new Date().getTime();
-  var end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
-  }
-}
 
 function RenderContent() {
   const [loading, setLoading] = useState(true);
+  const [loadData, setLoadData] = useState(true);
+  const [currentPrice, setCurrentPrice] = useState("");
   let currentId = localStorage.getItem("userToken");
 
   useEffect(() => {
@@ -45,6 +40,8 @@ function RenderContent() {
 
   async function scrapePage() {
     if (loading) {
+      console.log(parsedResponse);
+
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
         await getAmazonPrice(html).then((res) => {
@@ -116,7 +113,15 @@ function RenderContent() {
                 return (
                   <tr style={{ color: "white" }}>
                     <th>{index + 1}</th>
-                    <th>{titleArray[index]}</th>
+                    <th>
+                      <a
+                        style={{ color: "white" }}
+                        target="_blank"
+                        href={links}
+                      >
+                        {titleArray[index]}
+                      </a>
+                    </th>
                     <th>{priceArray[index]}</th>
                   </tr>
                 );
