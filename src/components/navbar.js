@@ -46,7 +46,7 @@ function LoggedIn() {
             style={{}}
             onClick={() => {
               localStorage.setItem("userToken", "");
-              window.location.reload();
+              window.location.refresh();
               console.log(localStorage.getItem("userToken"));
             }}
           >
