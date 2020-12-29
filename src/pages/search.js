@@ -1,12 +1,18 @@
+  
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { MDBInput, MDBContainer } from "mdbreact";
-import { FaAlignJustify } from "react-icons/fa";
+import { MDBInput, MDBContainer, MDBView } from "mdbreact";
+import Navbar from "../components/navbar";
+import homebg from "../assets/loginbg.jpg";
 
 let parsedResponse = [];
 let list = [];
 let display = [];
 let uniq = [];
+
+function Nav() {
+  return <Navbar renderContent={Search()} />;
+}
 
 const Search = () => {
   const [filtered, setFiltered] = useState([]);
@@ -21,7 +27,6 @@ const Search = () => {
           .map((parsedResponse) => {
             list.push(parsedResponse.username);
           });
-        console.log(parsedResponse);
         setFiltered(list);
       })
       .catch((err) => {});
@@ -65,30 +70,37 @@ const Search = () => {
   };
 
   return (
-    <MDBContainer>
-      <div>
-        <MDBInput
-          label="Search!"
-          onChange={searchData}
-          size="lg"
-          icon="search"
-        />
-        <div>
-          {uniq.map((item) => {
-            return (
-              <ul
-                style={{ textAlign: "center", fontSize: "2rem" }}
-                onClick={findUser}
-                id={item}
-              >
-                {item}
-              </ul>
-            );
-          })}
+    <MDBView src={homebg}>
+      <MDBContainer>
+        <div style={{ paddingTop: "5rem" }}>
+          <MDBInput
+            label="Search!"
+            onChange={searchData}
+            size="lg"
+            icon="search"
+            style={{ color: "white" }}
+          />
+          <div>
+            {uniq.map((item) => {
+              return (
+                <ul
+                  style={{
+                    textAlign: "center",
+                    fontSize: "2rem",
+                    color: "white",
+                  }}
+                  onClick={findUser}
+                  id={item}
+                >
+                  {item}
+                </ul>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </MDBContainer>
+      </MDBContainer>
+    </MDBView>
   );
 };
 
-export default Search;
+export default Nav;
