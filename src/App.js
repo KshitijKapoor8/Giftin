@@ -8,8 +8,6 @@ import Search from "./pages/search";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Wishlist from "./pages/wishlist";
 
-import "./index.css";
-
 function App() {
   return (
     <Router>
