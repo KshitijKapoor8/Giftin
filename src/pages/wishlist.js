@@ -138,7 +138,7 @@ function RenderContent() {
                                             return(
                                                 <tr style = {{color: 'white'}}>
                                                     <th>{index+1}</th>
-                                                    <th>{titleArray[index]}</th>
+                                                    <th><a style = {{color:'white'}} target = "_blank" href = {links}>{titleArray[index]}</a></th>
                                                     <th>{priceArray[index]}</th>
                                                 </tr>
                                                 
