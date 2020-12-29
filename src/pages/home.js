@@ -13,11 +13,14 @@ import {
   MDBView,
 } from "mdbreact";
 
+import Navbar from '../components/navbar';
+import { Nav } from "react-bootstrap";
+
 export default function Home(props) {
-  const [collapse, setCollapse] = useState(false);
-  const [isWideEnough, setIsWideEnough] = useState(false);
+ 
 
   return (
+<<<<<<< HEAD
     <div>
       <header>
         
@@ -44,7 +47,15 @@ export default function Home(props) {
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBNavbar>
+=======
+    <Navbar renderContent = {renderContent()}/>
+  );
+}
+>>>>>>> 8491bbf3c8048f4bfa3f3784b848a8a59e612206
 
+function renderContent()
+{
+    return(
         <MDBView src={homebg}>
           <MDBContainer>
             <div style={{ fontSize: 36, color: "white" }}>
@@ -52,7 +63,8 @@ export default function Home(props) {
             </div>
           </MDBContainer>
         </MDBView>
-      </header>
-    </div>
-  );
+    );
 }
+
+
+

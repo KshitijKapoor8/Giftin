@@ -6,6 +6,7 @@ import Signup from "./pages/signup";
 import Page from "./pages/page";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./index.css";
+import Wishlist from "./pages/wishlist";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/" component={Home} exact />
         <Route path="/login" component={Login} exact />
         <Route path="/signup" component={Signup} exact />
-        <Route path="/page" component={Page} exact />
+        <Route path='/wishlist' component={Wishlist} exact />
       </Switch>
     </Router>
   );
