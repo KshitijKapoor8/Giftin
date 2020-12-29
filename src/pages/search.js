@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { MDBInput, MDBContainer, MDBView, MDBTableBody, MDBTableHead, MDBTable} from "mdbreact";
+import {
+  MDBInput,
+  MDBContainer,
+  MDBView,
+  MDBTableBody,
+  MDBTableHead,
+  MDBTable,
+} from "mdbreact";
 import Navbar from "../components/navbar";
 import homebg from "../assets/loginbg.jpg";
 import {
@@ -12,11 +19,13 @@ import {
 } from "mdbreact";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
 import Loader from "react-loader-spinner";
+import { load } from "cheerio";
 
-let parsedResponse = [];
+let wishlistResponse = [];
 let list = [];
 let display = [];
 let uniq = [];
+let parsedResponse = [];
 let priceArray = [];
 let titleArray = [];
 let priceSet = [];
@@ -38,80 +47,84 @@ function Nav() {
 }
 
 const Search = () => {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [filtered, setFiltered] = useState([]);
   const [modal, setModal] = useState(false);
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {})
       .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data));
-        parsedResponse
+        wishlistResponse = JSON.parse(JSON.stringify(res.data));
+        wishlistResponse
           .slice(0)
           .reverse()
-          .map((parsedResponse) => {
-            list.push(parsedResponse.username);
+          .map((wishlistResponse) => {
+            list.push(wishlistResponse.username);
           });
         setFiltered(list);
       })
       .catch((err) => {});
-  }, []);
 
-  let currentId = localStorage.getItem("userToken");
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/users/${currentId}`)
+      axios
+      .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
         scrapePage();
       })
       .catch((err) => {
         console.log(err);
       });
+
   }, []);
 
   async function scrapePage() {
     if (loading) {
-      for (let i = 0; i < parsedResponse.length; i++) {
-        let html = await getHTML(parsedResponse[i]);
-        
+      for (let i = 0; i < wishlistResponse.length; i++) {
+        let html = await getHTML(wishlistResponse[i]);
+        console.log(wishlistResponse[i]);
+
         await getAmazonPrice(html).then((res) => {
           priceArray.push(res);
+          console.log(res);
         });
 
         await getAmazonTitle(html).then((res) => {
           titleArray.push(res);
+          console.log(titleArray);
         });
 
-        if (parsedResponse[parsedResponse.length - 1] === parsedResponse[i])
+        if (wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i])
           setLoading(false);
       }
 
-      console.log(loading);
-      priceSet = [...new Set(priceArray)];
-      titleSet = [...new Set(titleArray)];
+      if (loading === true) {
+        setLoading(false);
 
-      priceArray = Array.from(priceSet);
-      titleArray = Array.from(titleSet);
+        priceSet = [...new Set(priceArray)];
+        titleSet = [...new Set(titleArray)];
+
+        priceArray = Array.from(priceSet);
+        titleArray = Array.from(titleSet);
+      }
+      console.log(priceArray);
     }
   }
 
   const findUser = (e) => {
     name = e.target.id;
 
-    for (var i = 0; i < parsedResponse.length; i++) {
-      if (parsedResponse[i].username == name) {
-        id = parsedResponse[i]._id;
-        console.log(id)
+    for (var i = 0; i < wishlistResponse.length; i++) {
+      if (wishlistResponse[i].username == name) {
+        id = wishlistResponse[i]._id;
       }
     }
 
     axios
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        console.log(parsedResponse);
+        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        console.log(wishlistResponse)
+        scrapePage();
       })
       .catch((err) => {});
 
@@ -148,43 +161,49 @@ const Search = () => {
     setFiltered(newList);
   };
 
-
   function LoadingBody() {
-    if(loading){
-      return(<MDBModalBody> <Loader type="TailSpin" color="#00BFFF" height={80} width={80} /> </MDBModalBody>)
-    }
-    else{
-      return(<MDBModalBody><MDBTable borderless>
-        <MDBTableHead>
-          <tr style={{ color: "black" }}>
-            <th>#</th>
-            <th>title</th>
-            <th>price</th>
-          </tr>
-        </MDBTableHead>
-
-        <MDBTableBody>
-          {parsedResponse.map((links, index) => {
-            console.log("PRICES: " + priceArray);
-
-            return (
-              <tr style={{ color: "white" }}>
-                <th>{index + 1}</th>
-                <th>
-                  <a
-                    style={{ color: "white" }}
-                    target="_blank"
-                    href={links}
-                  >
-                    {titleArray[index]}
-                  </a>
-                </th>
-                <th>{priceArray[index]}</th>
+    if (loading) {
+      return (
+        <MDBModalBody>
+          {" "}
+          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />{" "}
+        </MDBModalBody>
+      );
+    } else {
+      return (
+        <MDBModalBody>
+          <MDBTable borderless>
+            <MDBTableHead>
+              <tr style={{ color: "black" }}>
+                <th>#</th>
+                <th>title</th>
+                <th>price</th>
               </tr>
-            );
-          })}
-        </MDBTableBody>
-      </MDBTable></MDBModalBody>)
+            </MDBTableHead>
+
+            <MDBTableBody>
+              {wishlistResponse.map((links, index) => {
+                console.log(index)
+                return (
+                  <tr style={{ color: "black" }}>
+                    <th>{index + 1}</th>
+                    <th>
+                      <a
+                        style={{ color: "black" }}
+                        target="_blank"
+                        href={links}
+                      >
+                        {titleArray[index]}
+                      </a>
+                    </th>
+                    <th>{priceArray[index]}</th>
+                  </tr>
+                );
+              })}
+            </MDBTableBody>
+          </MDBTable>
+        </MDBModalBody>
+      );
     }
   }
 
@@ -218,7 +237,7 @@ const Search = () => {
           </div>
           <MDBModal isOpen={modal}>
             <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
-            <LoadingBody/>
+            <LoadingBody />
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggle}>
                 Close
