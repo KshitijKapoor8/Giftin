@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Form, Button, Col, Container, Row } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Col,
+  Container,
+  Row,
+  FormControl,
+} from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
 import axios from "axios";
 
@@ -21,7 +28,9 @@ const Login = () => {
         localStorage.setItem("userToken", res.data);
         window.location = "/";
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setError("There was an error with your email or password");
+      });
   };
 
   return (
@@ -69,7 +78,17 @@ const Login = () => {
               </Form.Group>
             </Col>
           </Row>
-
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <small
+                style={{
+                  color: "red",
+                }}
+              >
+                {error}{" "}
+              </small>
+            </Col>
+          </Row>
           <Row>
             <Col sm={{ span: 4, offset: 4 }}>
               <Form.Group id="formNoAccount">
