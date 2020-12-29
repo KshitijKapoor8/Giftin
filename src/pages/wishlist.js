@@ -28,7 +28,7 @@ function wait(ms) {
 function RenderContent() {
   const [loading, setLoading] = useState(true);
   const [loadData, setLoadData] = useState(true);
-  const [stuff, setstuff] = useState(true);
+  const [currentPrice, setCurrentPrice] = useState("");
   let currentId = localStorage.getItem("userToken");
 
   useEffect(() => {
@@ -36,75 +36,70 @@ function RenderContent() {
       .get(`http://localhost:5000/users/${currentId}`)
       .then((res) => {
         parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        setLoading(false);
-        amazon();
+        console.log(loading);
+        scrapePage();
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  function amazon() {
-    for (let i = 0; i < parsedResponse.length; i++) {
-      var regex = RegExp(
-        "https://www.amazon.com/([\\w-]+/)?(dp|gp/product)/(\\w+/)?(\\w{10})"
-      );
-      var t = parsedResponse[i].match(regex);
-      if (t) {
-        asin.push(t[4]);
-      }
-    }
-    if (asin.length === parsedResponse.length) {
-      console.log(getData(asin[1]));
-    }
+  if (loading) return null;
 
-    function getData(asin) {
-      if (asin !== "undefined") {
-        console.log(asin);
-        const API = `https://api.rainforestapi.com/request?api_key=D1353B3B816F48CDBBE7DFA7639FD47B&type=product&amazon_domain=amazon.com&asin=${asin}`;
-        return new Promise((resolve, reject) => {
-          fetch(API, {
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application///json",
-            },
-          })
-            .then((response) => {
-              response.json().then((data) => {
-                console.log(data);
-                if (data.request_info.success.toString() === "false") {
-                  console.log("hello");
-                } else if (data.request_info.success.toString() === "true") {
-                  resolve(data);
-                  getData().then((data) => {
-                    if (data.request_info.success.toString() === "false") {
-                      console.log("hello again");
-                    } else if (
-                      data.request_info.success.toString() === "true"
-                    ) {
-                      let value = data.product.buybox_winner.price.value.toString();
-                      console.log(value);
-                    }
-                  });
-                }
-              });
-            })
-            .catch((error) => {
-              console.log("Error fetching response: ", error);
-            });
+  async function scrapePage() {
+    if (loading) {
+      console.log(parsedResponse);
+      // parsedResponse.map(async (x, i) => {
+
+      //     let html = await getHTML(x);
+      //     await getAmazonPrice(html).then((res) => {
+      //         priceArray.push(res)
+      //         console.log(res)
+      //         if(parsedResponse[parsedResponse.length-1] === x)
+      //             setLoading(false)
+
+      //     })
+
+      //     await getAmazonTitle(html).then((res) => {
+      //         titleArray.push(res)
+      //     })
+      // })
+
+      for (let i = 0; i < parsedResponse.length; i++) {
+        let html = await getHTML(parsedResponse[i]);
+        await getAmazonPrice(html).then((res) => {
+          priceArray.push(res);
         });
-      } else {
-        console.log("wait");
+
+        await getAmazonTitle(html).then((res) => {
+          titleArray.push(res);
+        });
+
+        if (parsedResponse[parsedResponse.length - 1] === parsedResponse[i])
+          setLoading(false);
       }
+
+      console.log(priceArray);
+      priceSet = [...new Set(priceArray)];
+      titleSet = [...new Set(titleArray)];
+
+      priceArray = Array.from(priceSet);
+      titleArray = Array.from(titleSet);
     }
   }
-  // for (let i = 0; i < asin.length; i++) {
-  //   console.log(asin[i]);
-  //setstuff(false);
-  //console.log(getData(asin[1]));
-  // }
 
-  if (loading) return null;
+  // for(let i = 0; i < parsedResponse.length; i++)
+  // {
+  //     let asin;
+  //     var regex = RegExp("https://www.amazon.com/([//w-]+/)?(dp%7Cgp/product)/(//w+/)?(//w%7B10%7D)%22");
+
+  //     if (parsedResponse[i].match(regex)) {
+  //         asin = parsedResponse[i].match(regex)[4];
+  //     }
+  //     console.log(parsedResponse[i])
+  //     console.log(asin)
+
+  // }
 
   return (
     <MDBView
@@ -149,13 +144,13 @@ function RenderContent() {
 
             <MDBTableBody>
               {parsedResponse.map((links, index) => {
-                if (setLoadData) return null;
+                console.log("PRICES: " + priceArray);
 
                 return (
                   <tr style={{ color: "white" }}>
-                    <th>{links}</th>
-                    <th>{priceSet[index]}</th>
-                    <th>price</th>
+                    <th>{index + 1}</th>
+                    <th>{titleArray[index]}</th>
+                    <th>{priceArray[index]}</th>
                   </tr>
                 );
               })}
