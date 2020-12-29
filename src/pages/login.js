@@ -18,7 +18,8 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        window.location = "/";
+        localStorage.setItem("userToken", res.data);
+        window.location = "/page";
       })
       .catch((err) => {});
   };

@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { FaLock } from "react-icons/fa";
+import axios from "axios";
 
-export default function signup() {
+const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const setData = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:5000/users/signup", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        window.location = "/page";
+      })
+      .catch((err) => {});
+  };
   return (
     <div style={{ paddingTop: "4rem" }}>
       <Form>
@@ -65,4 +83,6 @@ export default function signup() {
       </Form>
     </div>
   );
-}
+};
+
+export default Signup;
