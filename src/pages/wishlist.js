@@ -59,7 +59,7 @@ function RenderContent() {
               height: "100%",
             }}
           >
-            <strong>your </strong> wishlist
+            <strong>your</strong> wishlist
           </h1>
           <div
             style={{
@@ -124,7 +124,7 @@ function RenderContent() {
           }}
         >
           <h1 style={{ color: "white" }}>
-            <strong>your</strong> wishlist
+            <strong>your </strong> wishlist
           </h1>
         </div>
 

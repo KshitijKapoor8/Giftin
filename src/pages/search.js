@@ -1,21 +1,43 @@
-  
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { MDBContainer, MDBView, MDBInput, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import { MDBInput, MDBContainer, MDBView, MDBTableBody, MDBTableHead, MDBTable} from "mdbreact";
 import Navbar from "../components/navbar";
 import homebg from "../assets/loginbg.jpg";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter,
+} from "mdbreact";
+import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
+import Loader from "react-loader-spinner";
 
 let parsedResponse = [];
 let list = [];
 let display = [];
 let uniq = [];
+let priceArray = [];
+let titleArray = [];
+let priceSet = [];
+let titleSet = [];
+
+var name;
+
+var id;
 
 function Nav() {
+  if (localStorage.getItem("userToken") === "") {
+    window.location = "/";
+  }
   return <Navbar renderContent={Search()} />;
 }
 
-function Search() {
+const Search = () => {
+  const [loading, setLoading] = useState(true)
   const [filtered, setFiltered] = useState([]);
+  const [modal, setModal] = useState(false);
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {})
@@ -32,38 +54,70 @@ function Search() {
       .catch((err) => {});
   }, []);
 
-  function FindUser(e) {
-    
-    const [modal, setModal] = useState(true);
-    const [toggle, setToggle] = useState(!modal);
+  let currentId = localStorage.getItem("userToken");
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/users/${currentId}`)
+      .then((res) => {
+        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        scrapePage();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-    var name = e.target.id;
+  async function scrapePage() {
+    if (loading) {
+      for (let i = 0; i < parsedResponse.length; i++) {
+        let html = await getHTML(parsedResponse[i]);
+        
+        await getAmazonPrice(html).then((res) => {
+          priceArray.push(res);
+        });
+
+        await getAmazonTitle(html).then((res) => {
+          titleArray.push(res);
+        });
+
+        if (parsedResponse[parsedResponse.length - 1] === parsedResponse[i])
+          setLoading(false);
+      }
+
+      console.log(priceArray);
+      priceSet = [...new Set(priceArray)];
+      titleSet = [...new Set(titleArray)];
+
+      priceArray = Array.from(priceSet);
+      titleArray = Array.from(titleSet);
+    }
+  }
+
+  const findUser = (e) => {
+    name = e.target.id;
+
     for (var i = 0; i < parsedResponse.length; i++) {
       if (parsedResponse[i].username == name) {
-        console.log(parsedResponse[i]._id);
+        id = parsedResponse[i]._id;
       }
     }
 
-    return(
-    <MDBContainer>
-    <MDBBtn onClick={setToggle(!toggle)}>Modal</MDBBtn>
-    <MDBModal isOpen={setModal(!modal)} toggle={setToggle(!toggle)}>
-      <MDBModalHeader toggle={setToggle(!toggle)}>MDBModal title</MDBModalHeader>
-      <MDBModalBody>
-        (...)
-      </MDBModalBody>
-      <MDBModalFooter>
-          <MDBBtn color="secondary" onClick={setToggle(!toggle)}>Close</MDBBtn>
-          <MDBBtn color="primary">Save changes</MDBBtn>
-        </MDBModalFooter>
-      </MDBModal>
-    </MDBContainer>
-    )
+    axios
+      .get(`http://localhost:5000/users/${id}`)
+      .then((res) => {
+        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        console.log(parsedResponse);
+      })
+      .catch((err) => {});
 
+    setModal(true);
   };
+  function toggle() {
+    setModal(false);
+  }
 
-  function searchData(e) {
+  const searchData = (e) => {
     let currentList = [];
 
     let newList = [];
@@ -91,6 +145,46 @@ function Search() {
     setFiltered(newList);
   };
 
+
+  function LoadingBody() {
+    if(loading){
+      return(<MDBModalBody> <Loader type="TailSpin" color="#00BFFF" height={80} width={80} /> </MDBModalBody>)
+    }
+    else{
+      return(<MDBModalBody><MDBTable borderless>
+        <MDBTableHead>
+          <tr style={{ color: "white" }}>
+            <th>#</th>
+            <th>title</th>
+            <th>price</th>
+          </tr>
+        </MDBTableHead>
+
+        <MDBTableBody>
+          {parsedResponse.map((links, index) => {
+            console.log("PRICES: " + priceArray);
+
+            return (
+              <tr style={{ color: "white" }}>
+                <th>{index + 1}</th>
+                <th>
+                  <a
+                    style={{ color: "white" }}
+                    target="_blank"
+                    href={links}
+                  >
+                    {titleArray[index]}
+                  </a>
+                </th>
+                <th>{priceArray[index]}</th>
+              </tr>
+            );
+          })}
+        </MDBTableBody>
+      </MDBTable></MDBModalBody>)
+    }
+  }
+
   return (
     <MDBView src={homebg}>
       <MDBContainer>
@@ -100,7 +194,6 @@ function Search() {
             onChange={searchData}
             size="lg"
             icon="search"
-            color="white"
             style={{ color: "white" }}
           />
           <div>
@@ -112,7 +205,7 @@ function Search() {
                     fontSize: "2rem",
                     color: "white",
                   }}
-                  onClick={FindUser}
+                  onClick={findUser}
                   id={item}
                 >
                   {item}
@@ -120,6 +213,15 @@ function Search() {
               );
             })}
           </div>
+          <MDBModal isOpen={modal}>
+            <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
+            <LoadingBody/>
+            <MDBModalFooter>
+              <MDBBtn color="secondary" onClick={toggle}>
+                Close
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
         </div>
       </MDBContainer>
     </MDBView>
