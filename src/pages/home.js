@@ -13,37 +13,20 @@ import {
   MDBView,
 } from "mdbreact";
 
+import Navbar from '../components/navbar';
+import { Nav } from "react-bootstrap";
+
 export default function Home(props) {
-  const [collapse, setCollapse] = useState(false);
-  const [isWideEnough, setIsWideEnough] = useState(false);
+ 
 
   return (
-    <div>
-      <header>
-        <MDBNavbar
-          color="bg-primary"
-          fixed="top"
-          dark
-          expand="md"
-          scrolling
-          transparent
-        >
-          <MDBNavbarBrand href="/home">Giftin'</MDBNavbarBrand>
-          {!isWideEnough && (
-            <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
-          )}
-          <MDBCollapse isOpen={collapse} navbar>
-            <MDBNavbarNav right>
-              <MDBNavItem>
-                <MDBNavLink to="/login">Login</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="/signup">Sign Up</MDBNavLink>
-              </MDBNavItem>
-            </MDBNavbarNav>
-          </MDBCollapse>
-        </MDBNavbar>
+    <Navbar renderContent = {renderContent()}/>
+  );
+}
 
+function renderContent()
+{
+    return(
         <MDBView src={homebg}>
           <MDBContainer>
             <div style={{ fontSize: 36, color: "white" }}>
@@ -51,7 +34,8 @@ export default function Home(props) {
             </div>
           </MDBContainer>
         </MDBView>
-      </header>
-    </div>
-  );
+    );
 }
+
+
+
