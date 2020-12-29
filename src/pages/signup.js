@@ -9,6 +9,9 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const [error, setError] = useState("");
+  const [matchPassword, setMatchPassword] = useState("");
+  const [clickCheckbox, setClickCheckbox] = useState("");
 
   const setData = (e) => {
     e.preventDefault();
@@ -23,7 +26,15 @@ const Signup = () => {
         .then((res) => {
           window.location = "/page";
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setError("There was an error with your email");
+        });
+    }
+    if (confirmPassword !== password) {
+      setMatchPassword("Passwords do not match");
+    }
+    if (checkbox !== true) {
+      setClickCheckbox("Please agree to the terms and conditions");
     }
   };
   return (
@@ -106,6 +117,39 @@ const Signup = () => {
                   onChange={() => setCheckbox(true)}
                 />
               </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <small
+                style={{
+                  color: "red",
+                }}
+              >
+                {error}{" "}
+              </small>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <small
+                style={{
+                  color: "red",
+                }}
+              >
+                {matchPassword}{" "}
+              </small>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={{ span: 4, offset: 4 }}>
+              <small
+                style={{
+                  color: "red",
+                }}
+              >
+                {clickCheckbox}{" "}
+              </small>
             </Col>
           </Row>
           <Row>

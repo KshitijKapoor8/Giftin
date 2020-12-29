@@ -103,4 +103,8 @@ const Search = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Nav;
+=======
+export default Nav;
+>>>>>>> a01095c1b416cb1b54325a56136ed69400ab9130
