@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Form, Col, Container, Row } from "react-bootstrap";
-import { FaLock } from "react-icons/fa";
+import { FcLock } from "react-icons/fc";
+import homebg from "../assets/iamge.jpg";
 import axios from "axios";
+import { MDBView } from "mdbreact";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -38,132 +40,148 @@ const Signup = () => {
     }
   };
   return (
-    <div style={{ paddingTop: "4rem" }}>
-      <Form onSubmit={setData}>
-        <Container fluid>
-          <Row>
-            <Col xs={{ span: 4, offset: 4 }}>
-              <FaLock size={23} />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <label style={{ fontSize: "2rem" }}> Sign Up </label>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <Form.Group controlId="formGridUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  placeholder="Enter username"
-                  onChange={(text) => {
-                    setUsername(text.target.value);
-                  }}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <Form.Group controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={(text) => {
-                    setEmail(text.target.value);
-                  }}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+    <MDBView
+      src={homebg}
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <div style={{ paddingTop: "4rem" }}>
+        <Form onSubmit={setData}>
+          <Container fluid>
+            <Row>
+              <Col xs={{ span: 4, offset: 4 }}>
+                <FcLock size={23} />
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <label style={{ fontSize: "2rem", color: "white" }}>
+                  {" "}
+                  Sign Up{" "}
+                </label>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <Form.Group controlId="formGridUsername">
+                  <Form.Label style={{ color: "white" }}>Username</Form.Label>
+                  <Form.Control
+                    placeholder="Enter username"
+                    onChange={(text) => {
+                      setUsername(text.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <Form.Group controlId="formGridEmail">
+                  <Form.Label style={{ color: "white" }}>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    onChange={(text) => {
+                      setEmail(text.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <Form.Group controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(text) => {
-                    setPassword(text.target.value);
-                  }}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <Form.Group controlId="formGridPassword">
+                  <Form.Label style={{ color: "white" }}>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(text) => {
+                      setPassword(text.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <Form.Group controlId="formGridConfirmPassword">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(text) => {
-                    setConfirmPassword(text.target.value);
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <Form.Group controlId="formGridConfirmPassword">
+                  <Form.Label style={{ color: "white" }}>
+                    Confirm Password
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(text) => {
+                      setConfirmPassword(text.target.value);
+                    }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <Form.Group controlId="formBasicCheckbox">
+                  <Form.Check
+                    type="checkbox"
+                    label="I agree to the Terms and Conditions"
+                    onChange={() => setCheckbox(true)}
+                    style={{ color: "white" }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <small
+                  style={{
+                    color: "red",
                   }}
+                >
+                  {error}{" "}
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <small
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  {matchPassword}{" "}
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <small
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  {clickCheckbox}{" "}
+                </small>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={{ span: 4, offset: 4 }}>
+                <input
+                  type="submit"
+                  value="Sign Up"
+                  className="btn btn-primary"
                 />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <Form.Group controlId="formBasicCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  label="I agree to the Terms and Conditions"
-                  onChange={() => setCheckbox(true)}
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <small
-                style={{
-                  color: "red",
-                }}
-              >
-                {error}{" "}
-              </small>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <small
-                style={{
-                  color: "red",
-                }}
-              >
-                {matchPassword}{" "}
-              </small>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <small
-                style={{
-                  color: "red",
-                }}
-              >
-                {clickCheckbox}{" "}
-              </small>
-            </Col>
-          </Row>
-          <Row>
-            <Col sm={{ span: 4, offset: 4 }}>
-              <input
-                type="submit"
-                value="Sign Up"
-                className="btn btn-primary"
-              />
-            </Col>
-          </Row>
-        </Container>
-      </Form>
-    </div>
+              </Col>
+            </Row>
+          </Container>
+        </Form>
+      </div>
+    </MDBView>
   );
 };
 

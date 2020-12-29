@@ -3,11 +3,23 @@ import React, { useState, useEffect } from "react";
 import { MDBInput, MDBContainer, MDBView } from "mdbreact";
 import Navbar from "../components/navbar";
 import homebg from "../assets/loginbg.jpg";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalBody,
+  MDBModalHeader,
+  MDBModalFooter,
+} from "mdbreact";
+import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
 
 let parsedResponse = [];
 let list = [];
 let display = [];
 let uniq = [];
+
+var name;
+
+var id;
 
 function Nav() {
   return <Navbar renderContent={Search()} />;
@@ -15,6 +27,7 @@ function Nav() {
 
 const Search = () => {
   const [filtered, setFiltered] = useState([]);
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     axios
       .get("http://localhost:5000/users/", {})
@@ -32,13 +45,27 @@ const Search = () => {
   }, []);
 
   const findUser = (e) => {
-    var name = e.target.id;
+    name = e.target.id;
+
     for (var i = 0; i < parsedResponse.length; i++) {
       if (parsedResponse[i].username == name) {
-        console.log(parsedResponse[i]._id);
+        id = parsedResponse[i]._id;
       }
     }
+
+    axios
+      .get(`http://localhost:5000/users/${id}`)
+      .then((res) => {
+        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        console.log(parsedResponse);
+      })
+      .catch((err) => {});
+
+    setModal(true);
   };
+  function toggle() {
+    setModal(false);
+  }
 
   const searchData = (e) => {
     let currentList = [];
@@ -96,6 +123,15 @@ const Search = () => {
               );
             })}
           </div>
+          <MDBModal isOpen={modal}>
+            <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
+            <MDBModalBody>hello</MDBModalBody>
+            <MDBModalFooter>
+              <MDBBtn color="secondary" onClick={toggle}>
+                Close
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
         </div>
       </MDBContainer>
     </MDBView>
