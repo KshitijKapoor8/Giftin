@@ -15,11 +15,12 @@ const Login = () => {
     const user = {email: email, password: password};
 
     axios.post('http://localhost:5000/users/login', {
-      "email": email,
-      "password": password,
+      email: email,
+      password: password,
     })
       .then((res) => {
         console.log(res);
+        window.location = "/"
       })
       .catch((err) => {console.log("tes")})
   }
