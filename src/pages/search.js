@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { MDBInput, MDBContainer, MDBView, MDBTableBody, MDBTableHead, MDBTable} from "mdbreact";
+import {
+  MDBInput,
+  MDBContainer,
+  MDBView,
+  MDBTableBody,
+  MDBTableHead,
+  MDBTable,
+} from "mdbreact";
 import Navbar from "../components/navbar";
 import homebg from "../assets/loginbg.jpg";
 import {
@@ -12,8 +19,11 @@ import {
 } from "mdbreact";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
 import Loader from "react-loader-spinner";
+import { load } from "cheerio";
 
 let parsedResponse = [];
+let NewparsedResponse = [];
+let finalparsedResponce = [];
 let list = [];
 let display = [];
 let uniq = [];
@@ -38,7 +48,7 @@ function Nav() {
 }
 
 const Search = () => {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [filtered, setFiltered] = useState([]);
   const [modal, setModal] = useState(false);
   useEffect(() => {
@@ -57,43 +67,39 @@ const Search = () => {
       .catch((err) => {});
   }, []);
 
-  let currentId = localStorage.getItem("userToken");
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/users/${currentId}`)
-      .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        scrapePage();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   async function scrapePage() {
     if (loading) {
-      for (let i = 0; i < parsedResponse.length; i++) {
-        let html = await getHTML(parsedResponse[i]);
-        
+      for (let i = 0; i < NewparsedResponse.length; i++) {
+        let html = await getHTML(NewparsedResponse[i]);
+        console.log(NewparsedResponse);
+
         await getAmazonPrice(html).then((res) => {
           priceArray.push(res);
+          console.log(res);
         });
 
         await getAmazonTitle(html).then((res) => {
           titleArray.push(res);
+          console.log(titleArray);
         });
 
-        if (parsedResponse[parsedResponse.length - 1] === parsedResponse[i])
+        if (
+          NewparsedResponse[NewparsedResponse.length - 1] ===
+          NewparsedResponse[i]
+        )
           setLoading(false);
       }
 
-      console.log(loading);
-      priceSet = [...new Set(priceArray)];
-      titleSet = [...new Set(titleArray)];
+      if (loading === true) {
+        setLoading(false);
 
-      priceArray = Array.from(priceSet);
-      titleArray = Array.from(titleSet);
+        priceSet = [...new Set(priceArray)];
+        titleSet = [...new Set(titleArray)];
+
+        priceArray = Array.from(priceSet);
+        titleArray = Array.from(titleSet);
+      }
+      console.log(priceArray);
     }
   }
 
@@ -103,15 +109,21 @@ const Search = () => {
     for (var i = 0; i < parsedResponse.length; i++) {
       if (parsedResponse[i].username == name) {
         id = parsedResponse[i]._id;
-        console.log(id)
       }
     }
 
     axios
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        console.log(parsedResponse);
+        NewparsedResponse = JSON.parse(JSON.stringify(res.data));
+        console.log(NewparsedResponse);
+        NewparsedResponse.slice(0)
+          .reverse()
+          .map((NewparsedResponse) => {
+            finalparsedResponce.push(NewparsedResponse.wishlist);
+          });
+        console.log(finalparsedResponce);
+        scrapePage();
       })
       .catch((err) => {});
 
@@ -148,43 +160,50 @@ const Search = () => {
     setFiltered(newList);
   };
 
-
   function LoadingBody() {
-    if(loading){
-      return(<MDBModalBody> <Loader type="TailSpin" color="#00BFFF" height={80} width={80} /> </MDBModalBody>)
-    }
-    else{
-      return(<MDBModalBody><MDBTable borderless>
-        <MDBTableHead>
-          <tr style={{ color: "black" }}>
-            <th>#</th>
-            <th>title</th>
-            <th>price</th>
-          </tr>
-        </MDBTableHead>
-
-        <MDBTableBody>
-          {parsedResponse.map((links, index) => {
-            console.log("PRICES: " + priceArray);
-
-            return (
-              <tr style={{ color: "white" }}>
-                <th>{index + 1}</th>
-                <th>
-                  <a
-                    style={{ color: "white" }}
-                    target="_blank"
-                    href={links}
-                  >
-                    {titleArray[index]}
-                  </a>
-                </th>
-                <th>{priceArray[index]}</th>
+    if (loading) {
+      return (
+        <MDBModalBody>
+          {" "}
+          <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />{" "}
+        </MDBModalBody>
+      );
+    } else {
+      return (
+        <MDBModalBody>
+          <MDBTable borderless>
+            <MDBTableHead>
+              <tr style={{ color: "black" }}>
+                <th>#</th>
+                <th>title</th>
+                <th>price</th>
               </tr>
-            );
-          })}
-        </MDBTableBody>
-      </MDBTable></MDBModalBody>)
+            </MDBTableHead>
+
+            <MDBTableBody>
+              {parsedResponse.map((links, index) => {
+                console.log("PRICES: " + priceArray);
+                console.log(priceArray[0]);
+                return (
+                  <tr style={{ color: "white" }}>
+                    <th>{index + 1}</th>
+                    <th>
+                      <a
+                        style={{ color: "white" }}
+                        target="_blank"
+                        href={links}
+                      >
+                        {titleArray[index]}
+                      </a>
+                    </th>
+                    <th>{priceArray[index]}</th>
+                  </tr>
+                );
+              })}
+            </MDBTableBody>
+          </MDBTable>
+        </MDBModalBody>
+      );
     }
   }
 
@@ -218,7 +237,7 @@ const Search = () => {
           </div>
           <MDBModal isOpen={modal}>
             <MDBModalHeader>{name + "'s Wishlist"}</MDBModalHeader>
-            <LoadingBody/>
+            <LoadingBody />
             <MDBModalFooter>
               <MDBBtn color="secondary" onClick={toggle}>
                 Close
