@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import { MDBView, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
+import { MDBView, MDBTable, MDBTableBody, MDBTableHead, MDBBtn, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBInput } from "mdbreact";
 import presentBg from "../assets/present.jpg";
 import axios from "axios";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
@@ -25,6 +25,9 @@ function RenderContent() {
   const [loading, setLoading] = useState(true);
   const [loadData, setLoadData] = useState(true);
   const [currentPrice, setCurrentPrice] = useState("");
+  const [modal, setModal] = useState(false);
+  const [add, setAdd] = useState("");
+
   let currentId = localStorage.getItem("userToken");
 
   useEffect(() => {
@@ -167,7 +170,10 @@ function RenderContent() {
                     </th>
                     <th>{priceArray[index]}</th>
                     <th><div onClick = {() => {
-                      parsedResponse.pop(index);
+                      const indexx = parsedResponse.indexOf(parsedResponse[index]);
+                      if (indexx > -1) {
+                        parsedResponse.splice(indexx, 1);
+                      }
                       axios.post('http://localhost:5000/users/update/'+localStorage.getItem("userToken"), {"wishlist": parsedResponse})
                         .then(() => {window.location.reload()})
                         .catch((err) => {console.log(err)})                     
@@ -178,7 +184,27 @@ function RenderContent() {
             </MDBTableBody>
           </MDBTable>
         </div>
+        <div style = {{justifyContent: 'center', display: 'flex'}}><MDBBtn onClick = {() => {
+          setModal(!modal)
+        }}style = {{fontSize: 20}} size = "sm" gradient = "blue" width = {30}>+</MDBBtn></div>
       </div>
+      <MDBModal isOpen={modal}>
+            <MDBModalHeader>{"Add to your wishlist:"}</MDBModalHeader>
+              <div style= {{justifyContent: 'center', display: 'flex', paddingRight: '19%'}}><MDBInput onChange = {(text) => {setAdd(text.target.value)}} style = {{width: '150%',  display: 'flex', justifyContent: 'center',}} label="Enter Amazon Link" /></div>
+            <MDBModalFooter>
+            <MDBBtn size = "sm" gradient="blue" onClick={() => {
+              parsedResponse.push(add);
+              axios.post(`http://localhost:5000/users/update/${currentId}`, {"wishlist": parsedResponse})
+              .then(() => {window.location.reload()})
+              .catch(() => {})
+            }}>
+                Add
+              </MDBBtn>
+             <MDBBtn size = "sm" gradient="purple" onClick={() => {setModal(!modal)}}>
+                Cancel
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
     </MDBView>
   );
 
@@ -228,8 +254,27 @@ function RenderContent() {
           </MDBTable>
         </div>
         <div style = {{justifyContent: 'center', display:'flex', color: 'white'}}><h1>You don't have anything in your wishlist!</h1></div>
-        <div></div>
+        <div style = {{justifyContent: 'center', display: 'flex'}}><MDBBtn onClick = {() => {
+          setModal(!modal)
+        }}style = {{fontSize: 20}} size = "sm" gradient = "blue" width = {30}>+</MDBBtn></div>
       </div>
+      <MDBModal isOpen={modal}>
+            <MDBModalHeader>{"Add to your wishlist:"}</MDBModalHeader>
+              <div style= {{justifyContent: 'center', display: 'flex', paddingRight: '19%'}}><MDBInput onChange = {(text) => {setAdd(text.target.value)}} style = {{width: '150%',  display: 'flex', justifyContent: 'center',}} label="Enter Amazon Link" /></div>
+            <MDBModalFooter>
+            <MDBBtn size = "sm" gradient="blue" onClick={() => {
+              parsedResponse.push(add);
+              axios.post(`http://localhost:5000/users/update/${currentId}`, {"wishlist": parsedResponse})
+              .then(() => {window.location.reload()})
+              .catch(() => {})
+            }}>
+                Add
+              </MDBBtn>
+             <MDBBtn size = "sm" gradient="purple" onClick={() => {setModal(!modal)}}>
+                Cancel
+              </MDBBtn>
+            </MDBModalFooter>
+          </MDBModal>
     </MDBView>
   )
 }
