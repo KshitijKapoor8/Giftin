@@ -21,12 +21,11 @@ import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
 import Loader from "react-loader-spinner";
 import { load } from "cheerio";
 
-let parsedResponse = [];
-let NewparsedResponse = [];
-let finalparsedResponce = [];
+let wishlistResponse = [];
 let list = [];
 let display = [];
 let uniq = [];
+let parsedResponse = [];
 let priceArray = [];
 let titleArray = [];
 let priceSet = [];
@@ -55,23 +54,34 @@ const Search = () => {
     axios
       .get("http://localhost:5000/users/", {})
       .then((res) => {
-        parsedResponse = JSON.parse(JSON.stringify(res.data));
-        parsedResponse
+        wishlistResponse = JSON.parse(JSON.stringify(res.data));
+        wishlistResponse
           .slice(0)
           .reverse()
-          .map((parsedResponse) => {
-            list.push(parsedResponse.username);
+          .map((wishlistResponse) => {
+            list.push(wishlistResponse.username);
           });
         setFiltered(list);
       })
       .catch((err) => {});
+
+      axios
+      .get(`http://localhost:5000/users/${id}`)
+      .then((res) => {
+        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        scrapePage();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, []);
 
   async function scrapePage() {
     if (loading) {
-      for (let i = 0; i < NewparsedResponse.length; i++) {
-        let html = await getHTML(NewparsedResponse[i]);
-        console.log(NewparsedResponse);
+      for (let i = 0; i < wishlistResponse.length; i++) {
+        let html = await getHTML(wishlistResponse[i]);
+        console.log(wishlistResponse[i]);
 
         await getAmazonPrice(html).then((res) => {
           priceArray.push(res);
@@ -83,10 +93,7 @@ const Search = () => {
           console.log(titleArray);
         });
 
-        if (
-          NewparsedResponse[NewparsedResponse.length - 1] ===
-          NewparsedResponse[i]
-        )
+        if (wishlistResponse[wishlistResponse.length - 1] === wishlistResponse[i])
           setLoading(false);
       }
 
@@ -106,23 +113,17 @@ const Search = () => {
   const findUser = (e) => {
     name = e.target.id;
 
-    for (var i = 0; i < parsedResponse.length; i++) {
-      if (parsedResponse[i].username == name) {
-        id = parsedResponse[i]._id;
+    for (var i = 0; i < wishlistResponse.length; i++) {
+      if (wishlistResponse[i].username == name) {
+        id = wishlistResponse[i]._id;
       }
     }
 
     axios
       .get(`http://localhost:5000/users/${id}`)
       .then((res) => {
-        NewparsedResponse = JSON.parse(JSON.stringify(res.data));
-        console.log(NewparsedResponse);
-        NewparsedResponse.slice(0)
-          .reverse()
-          .map((NewparsedResponse) => {
-            finalparsedResponce.push(NewparsedResponse.wishlist);
-          });
-        console.log(finalparsedResponce);
+        wishlistResponse = JSON.parse(JSON.stringify(res.data.wishlist));
+        console.log(wishlistResponse)
         scrapePage();
       })
       .catch((err) => {});
@@ -181,6 +182,7 @@ const Search = () => {
             </MDBTableHead>
 
             <MDBTableBody>
+<<<<<<< HEAD
               {parsedResponse.map((links, index) => {
                 console.log("PRICES: " + priceArray);
                 console.log(priceArray[0]);
@@ -190,6 +192,16 @@ const Search = () => {
                     <th>
                       <a
                         style={{ color: "white" }}
+=======
+              {wishlistResponse.map((links, index) => {
+                console.log(index)
+                return (
+                  <tr style={{ color: "black" }}>
+                    <th>{index + 1}</th>
+                    <th>
+                      <a
+                        style={{ color: "black" }}
+>>>>>>> 797f6a7400290639297fdeeefd86f667a03bee76
                         target="_blank"
                         href={links}
                       >
