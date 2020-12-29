@@ -44,6 +44,7 @@ function RenderContent() {
 
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
+        
         await getAmazonPrice(html).then((res) => {
           priceArray.push(res);
         });

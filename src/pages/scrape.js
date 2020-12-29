@@ -3,7 +3,7 @@ import cherrio from 'cheerio';
 
  async function getHTML(productURL) {
     try {
-      const {data: html } = await axios.get(`https://cors-anywhere.herokuapp.com/`+productURL, {
+      const {data: html } = await axios.get(`https://thingproxy.freeboard.io/fetch/`+productURL, {
         headers: {
                       'Access-Control-Allow-Origin' : '*',
                       'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',   
