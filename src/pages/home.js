@@ -20,38 +20,9 @@ export default function Home(props) {
  
 
   return (
-<<<<<<< HEAD
-    <div>
-      <header>
-        
-        <MDBNavbar
-          color="bg-primary"
-          fixed="top"
-          dark
-          expand="md"
-          scrolling
-          transparent
-        >
-          <MDBNavbarBrand href="/home">Giftin'</MDBNavbarBrand>
-          {!isWideEnough && (
-            <MDBNavbarToggler onClick={() => setCollapse(!collapse)} />
-          )}
-          <MDBCollapse isOpen={collapse} navbar>
-            <MDBNavbarNav right>
-              <MDBNavItem>
-                <MDBNavLink to="/login">Login</MDBNavLink>
-              </MDBNavItem>
-              <MDBNavItem>
-                <MDBNavLink to="/signup">Sign Up</MDBNavLink>
-              </MDBNavItem>
-            </MDBNavbarNav>
-          </MDBCollapse>
-        </MDBNavbar>
-=======
     <Navbar renderContent = {renderContent()}/>
   );
 }
->>>>>>> 8491bbf3c8048f4bfa3f3784b848a8a59e612206
 
 function renderContent()
 {
