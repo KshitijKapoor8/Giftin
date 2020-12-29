@@ -34,24 +34,17 @@ async function getHTML(productURL) {
 }
 
 async function getAmazonPrice(html) {
-<<<<<<< HEAD
   try {
 
   html = html.toString();
   const $ = await cherrio.load(html)
   
   const span = $('#priceblock_ourprice')
-=======
-  const $ = await cherrio.load(html);
-
-  const span = $("#priceblock_ourprice");
->>>>>>> a2a729f3856fb6d58b8d2ff64061df16002cac0f
   return span.html();
   } catch (error) {}
 }
 
 async function getAmazonTitle(html) {
-<<<<<<< HEAD
   try {
     html = html.toString();
     const $ = await cherrio.load(html)
@@ -61,12 +54,5 @@ async function getAmazonTitle(html) {
   } catch(error) {}
   }
   
-=======
-  const $ = await cherrio.load(html);
-
-  const span = $("#productTitle");
-  return span.html();
-}
->>>>>>> a2a729f3856fb6d58b8d2ff64061df16002cac0f
 
 export { getHTML, getAmazonPrice, getAmazonTitle };

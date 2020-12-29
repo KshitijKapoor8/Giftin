@@ -60,7 +60,7 @@ function RenderContent() {
               height: "100%",
             }}
           >
-            <strong>your </strong> wishlist
+            <span><span style = {{fontWeight: 'bold'}}>your</span> wishlist</span>
           </h1>
           <div
             style={{
@@ -81,6 +81,8 @@ function RenderContent() {
     if (loading) {
       console.log(parsedResponse);
 
+      if (parsedResponse.length === 0)
+        setLoading(false);
       for (let i = 0; i < parsedResponse.length; i++) {
         let html = await getHTML(parsedResponse[i]);
         await getAmazonPrice(html).then((res) => {
@@ -104,6 +106,7 @@ function RenderContent() {
     }
   }
 
+  if (parsedResponse.length !== 0)
   return (
     <MDBView
       style={{
@@ -178,6 +181,57 @@ function RenderContent() {
       </div>
     </MDBView>
   );
+
+  return (
+    
+    <MDBView
+      style={{
+        display: "flex",
+        flexDirection: "vertical",
+        justifyContent: "center",
+      }}
+      src={presentBg}
+    >
+      {console.log("test")}
+      <div>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            paddingTop: "7rem",
+            height: "100%",
+          }}
+        >
+          <h1 style={{ color: "white" }}>
+            <strong>your</strong> wishlist
+          </h1>
+        </div>
+
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <MDBTable borderless>
+            <MDBTableHead >
+              <tr style={{ color: "white", paddingLeft: '20%' }}>
+                <th>#</th>
+                <th>title</th>
+                <th>price</th>
+                <th></th>
+              </tr>
+            </MDBTableHead>
+          </MDBTable>
+        </div>
+        <div style = {{justifyContent: 'center', display:'flex', color: 'white'}}><h1>You don't have anything in your wishlist!</h1></div>
+        <div></div>
+      </div>
+    </MDBView>
+  )
 }
 
 
