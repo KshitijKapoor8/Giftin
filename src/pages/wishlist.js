@@ -4,6 +4,9 @@ import { MDBView, MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 import presentBg from "../assets/present.jpg";
 import axios from "axios";
 import { getAmazonPrice, getAmazonTitle, getHTML } from "./scrape";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+
 let parsedResponse = [];
 let priceArray = [];
 let titleArray = [];
@@ -28,7 +31,6 @@ function RenderContent() {
       .get(`http://localhost:5000/users/${currentId}`)
       .then((res) => {
         parsedResponse = JSON.parse(JSON.stringify(res.data.wishlist));
-        console.log(loading);
         scrapePage();
       })
       .catch((err) => {
@@ -36,7 +38,43 @@ function RenderContent() {
       });
   }, []);
 
-  if (loading) return null;
+  if (loading)
+    return (
+      <MDBView
+        style={{
+          display: "flex",
+          flexDirection: "vertical",
+          justifyContent: "center",
+        }}
+        src={presentBg}
+      >
+        <div>
+          <h1
+            style={{
+              color: "white",
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "7rem",
+              height: "100%",
+            }}
+          >
+            <strong>your </strong> wishlist
+          </h1>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: "4rem",
+            }}
+          >
+            <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+          </div>
+        </div>
+      </MDBView>
+    );
 
   async function scrapePage() {
     if (loading) {

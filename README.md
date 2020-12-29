@@ -1,10 +1,9 @@
 HAVE NODE INSTALLED AND INSTALL THESE LIBRARIES:
 
+npm install
 
-npm install 
+# npm install react-bootstrap bootstrap react-router-dom axios mdbreact
 
-npm install react-bootstrap bootstrap react-router-dom axios mdbreact
-=======
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -87,4 +86,5 @@ npm install react-bootstrap bootstrap react-router-dom
 npm install @material-ui/core
 
 npm install axios
-=======
+
+# npm install react-loader-spinner --save
