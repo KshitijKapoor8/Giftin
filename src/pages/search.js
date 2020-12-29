@@ -8,8 +8,6 @@ let list = [];
 let display = [];
 let uniq = [];
 
-let id = [];
-
 const Search = () => {
   const [filtered, setFiltered] = useState([]);
   useEffect(() => {
@@ -23,11 +21,20 @@ const Search = () => {
           .map((parsedResponse) => {
             list.push(parsedResponse.username);
           });
-
+        console.log(parsedResponse);
         setFiltered(list);
       })
       .catch((err) => {});
   }, []);
+
+  const findUser = (e) => {
+    var name = e.target.id;
+    for (var i = 0; i < parsedResponse.length; i++) {
+      if (parsedResponse[i].username == name) {
+        console.log(parsedResponse[i]._id);
+      }
+    }
+  };
 
   const searchData = (e) => {
     let currentList = [];
@@ -38,11 +45,11 @@ const Search = () => {
       currentList = list;
 
       newList = currentList.filter((item) => {
-        const lc = item.toLowerCase();
+        const lc = item;
 
-        const filter = e.target.value.toLowerCase();
+        const filter = e.target.value;
 
-        if (lc.includes(filter)) {
+        if (lc.startsWith(filter)) {
           display.push(lc);
           display.push(" ");
           uniq = [...new Set(display)];
@@ -66,7 +73,19 @@ const Search = () => {
           size="lg"
           icon="search"
         />
-        <ul style={{ textAlign: "center", fontSize: "2rem" }}>{uniq}</ul>
+        <div>
+          {uniq.map((item) => {
+            return (
+              <ul
+                style={{ textAlign: "center", fontSize: "2rem" }}
+                onClick={findUser}
+                id={item}
+              >
+                {item}
+              </ul>
+            );
+          })}
+        </div>
       </div>
     </MDBContainer>
   );
