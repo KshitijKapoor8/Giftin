@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import React, {useState} from 'react'
-import App from '../App';
-import homebg from '../assets/homebg.jpg'
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBContainer, MDBMask, MDBView } from 'mdbreact';
-import {BrowserRouter as Router} from 'react-router-dom'
-
-export default function Home() {
-
-    const [collapse, setCollapse] = useState(false);
-    const [isWideEnough, setIsWideEnough] = useState(false);
-
-
-=======
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import App from "../App";
@@ -29,7 +15,6 @@ import {
   MDBView,
 } from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
->>>>>>> 19ade195e3ee71702fe23222493f973a6431b595
 
 export default function Home(props) {
   const [collapse, setCollapse] = useState(false);
@@ -38,6 +23,7 @@ export default function Home(props) {
   return (
     <div>
       <header>
+        
         <MDBNavbar
           color="bg-primary"
           fixed="top"
@@ -88,7 +74,3 @@ export default function Home(props) {
     </div>
   );
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 19ade195e3ee71702fe23222493f973a6431b595

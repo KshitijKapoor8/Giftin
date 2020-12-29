@@ -1,7 +1,8 @@
 import React from 'react';
 
 export default function page() {
+    
     return(
-        <div>{window.$userToken}</div>
+        <div>{window.localStorage.getItem("userToken")}</div>
     )
 }
