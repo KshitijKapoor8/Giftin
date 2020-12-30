@@ -1,7 +1,5 @@
 Demo link (in case of technical failure):  https://youtu.be/9AQrwnR9xgw
 
-Hi! The readme on the github is a better source for our project information, so it will display our project better.
-
 ### What our website does
 
 Welcome to Giftin', a novel new platform in which users can view exactly what other users want and manage their own wishlists.
