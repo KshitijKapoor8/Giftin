@@ -30,7 +30,7 @@ A site should be running on localhost:3000, you should be able to use the entire
 3. Your wishlist page when logged in
 ![image](https://user-images.githubusercontent.com/51217487/103327655-10b80580-4a1b-11eb-9ffc-0ca8f38bf0ce.png)
 
-4. Adding a wishlist. Because we use a webscraper that we made ourselves, all the user has to do is input the amazon website link(unfortunately, no free Amazon API's exist).
+4. Adding a wishlist. Because we use a webscraper that we made ourselves, all the user has to do is input the amazon website link (unfortunately, no free Amazon API's exist).
 ![image](https://user-images.githubusercontent.com/51217487/103327667-24fc0280-4a1b-11eb-89c4-e397942c3cd0.png)
 
 5. Search the database of users, and then see the wishlists of other users.
