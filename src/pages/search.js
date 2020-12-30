@@ -171,7 +171,14 @@ const Search = () => {
           <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />{" "}
         </MDBModalBody>
       );
-    } else {
+    } else if(wishlistResponse.length === 0) {
+      return (
+        <MDBModalBody>
+          <div>There are no items in this Wishlist</div>
+        </MDBModalBody>
+      );
+    }
+    else{
       return (
         <MDBModalBody>
           <MDBTable borderless>
@@ -180,6 +187,7 @@ const Search = () => {
                 <th>#</th>
                 <th>title</th>
                 <th>price</th>
+                <th></th>
               </tr>
             </MDBTableHead>
 
@@ -199,6 +207,17 @@ const Search = () => {
                       </a>
                     </th>
                     <th>{priceArray[index]}</th>
+                    <th><MDBBtn size="sm" gradient="aqua" onClick={() => {
+                      const indexx = wishlistResponse.indexOf(wishlistResponse[index]);
+                      if (indexx > -1) {
+                        wishlistResponse.splice(indexx, 1);
+                      }
+                      console.log(wishlistResponse)
+                      axios.post('http://localhost:5000/users/update/'+id, {"wishlist": wishlistResponse})
+                        .then(() => {window.location.reload()})
+                        .catch((err) => {console.log(err)})
+
+                        }}>Buy</MDBBtn></th>
                   </tr>
                 );
               })}
