@@ -10,6 +10,7 @@ The user can also search for the wishlists of other users on the search tab. Whe
 ### To run this program, make sure you have nodejs installed, as well as have cloned the github repository at https://github.com/KshitijKapoor8/Giftin
 
 npm install
+
 npm install nodemon
 
 In case there are errors with the clone, make sure all of the above commands are run.
