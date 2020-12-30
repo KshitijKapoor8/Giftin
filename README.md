@@ -1,3 +1,7 @@
+Demo link (in case of technical failure):  https://youtu.be/9AQrwnR9xgw
+
+Hi! The readme on the github is a better source for our project information, so it will display our project better.
+
 ### What our website does
 
 Welcome to Giftin', a novel new platform in which users can view exactly what other users want and manage their own wishlists.
@@ -6,6 +10,17 @@ After signing up, all the user has to do is click the plus icon on the wishlist 
 
 The user can also search for the wishlists of other users on the search tab. When the user finds another user and clicks on his name, a modal will open up that will show the wishlist of the other user. Here, the user can buy the products, which will redirect to the amazon link, as well as remove that particular item from the wishlist of the other user.
 
+### How we built it
+
+We built our project using the MERN stack, which means we used MongoDB as our no document backend, express to create our own RestAPI, ReactJS for our frontend, and Node to manage all of the moving parts.
+
+The first thing we did is make the general backend structure. In this structure, each user will have a wishlist attached to them, which they will be able to update. We made the RestAPI using express, and started on the frontend.
+
+After finishing that, we worked on our frontend as well as connected the frontend to the backend for the login and signup.
+
+Next, we started working on our wishlist. Each user had to be able to see their own wishlists, and since each wishlist array that each used had only stored amazon links, we had to implement our own webscraper to get the price and title from each amazon link. This was probably the bit that was the most time consuming, as we had to figure out how to use a proxy in order to make this feature.
+
+Finally, we worked on adding links as well as searching for other users' information.
 
 ### To run this program, make sure you have nodejs installed, as well as have cloned the github repository at https://github.com/KshitijKapoor8/Giftin
 
@@ -20,6 +35,7 @@ Afterwards, cd into the backend folder, and in the terminal, run "nodemon server
 Then, open a new terminal, this time cd into the root project, and run "npm start".
 
 A site should be running on localhost:3000, you should be able to use the entirety of the application.
+
 
 1. Home Page
 ![image](https://user-images.githubusercontent.com/51217487/103327607-dc444980-4a1a-11eb-863c-5bd4255e7e88.png)
