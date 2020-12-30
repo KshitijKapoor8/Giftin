@@ -10,6 +10,7 @@ import {
   MDBBtn,
 } from "mdbreact";
 
+
 function LoggedIn() {
   if (localStorage.getItem("userToken") === "") {
     return (
@@ -66,7 +67,7 @@ export default function Navbar(props) {
     <div>
       <header>
         <MDBNavbar
-          color="bg-primary"
+          color="grey darken-3"
           fixed="top"
           dark
           expand="md"
