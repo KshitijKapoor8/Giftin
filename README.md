@@ -20,3 +20,13 @@ Afterwards, cd into the backend folder, and in the terminal, run "nodemon server
 Then, open a new terminal, this time cd into the root project, and run "npm start".
 
 A site should be running on localhost:3000, you should be able to use the entirety of the application.
+
+![image](https://user-images.githubusercontent.com/51217487/103327607-dc444980-4a1a-11eb-863c-5bd4255e7e88.png)
+ 
+![image](https://user-images.githubusercontent.com/51217487/103327624-efefb000-4a1a-11eb-902a-8eb5a6a035c6.png)
+
+![image](https://user-images.githubusercontent.com/51217487/103327655-10b80580-4a1b-11eb-9ffc-0ca8f38bf0ce.png)
+
+![image](https://user-images.githubusercontent.com/51217487/103327667-24fc0280-4a1b-11eb-89c4-e397942c3cd0.png)
+
+![image](https://user-images.githubusercontent.com/51217487/103327713-4e1c9300-4a1b-11eb-911c-18bd553b9185.png)
