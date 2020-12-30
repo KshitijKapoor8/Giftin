@@ -9,15 +9,10 @@ The user can also search for the wishlists of other users on the search tab. Whe
 
 ### To run this program, make sure you have nodejs installed, as well as have cloned the github repository at https://github.com/KshitijKapoor8/Giftin
 
-npm install react-bootstrap bootstrap react-router-dom axios mdbreact 
-npm install express cors mongoose dotenv
-npm install -g nodemon
-npm install react-bootstrap bootstrap react-router-dom
-npm install @material-ui/core
-npm install axios
-npm install react-loader-spinner --save
+npm install
+npm install nodemon
 
-In case there are errors with the clone, make sure all of the above libraries are installed.
+In case there are errors with the clone, make sure all of the above commands are run.
 
 Afterwards, cd into the backend folder, and in the terminal, run "nodemon server". Note, this may not always work in the very first try, just save the file again and it should start the server fine.
 
